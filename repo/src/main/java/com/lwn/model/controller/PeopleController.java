@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
  * @since 2020-09-24
  */
 @Controller
-@RequestMapping("/peopleEntity")
+@RequestMapping("/people")
 public class PeopleController {
 
 }

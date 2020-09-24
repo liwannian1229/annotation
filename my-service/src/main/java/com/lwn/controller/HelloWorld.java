@@ -2,8 +2,8 @@ package com.lwn.controller;
 
 import com.lwn.annotation.MyAnnotation;
 import com.lwn.annotation.MyAnnotation_1;
-import com.lwn.common.CommonUtil;
-import com.lwn.token.TokenService;
+import common.CommonUtil;
+import token.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

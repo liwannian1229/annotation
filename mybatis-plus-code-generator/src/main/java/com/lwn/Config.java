@@ -39,7 +39,7 @@ public class Config {
     /**
      * 文件名后缀：Model
      */
-    public static final String FILE_NAME_MODEL = "%sEntity";
+    public static final String FILE_NAME_MODEL = "%s";
 
     /**
      * 文件名后缀：Dao

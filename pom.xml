@@ -12,6 +12,7 @@
         <module>my-service</module>
         <module>mybatis-plus-code-generator</module>
         <module>repo</module>
+        <module>common-utils</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

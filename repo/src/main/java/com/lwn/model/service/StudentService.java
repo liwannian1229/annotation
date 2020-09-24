@@ -1,6 +1,6 @@
 package com.lwn.model.service;
 
-import com.lwn.model.entity.StudentEntity;
+import com.lwn.model.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author liwannian
  * @since 2020-09-24
  */
-public interface StudentService extends IService<StudentEntity> {
+public interface StudentService extends IService<Student> {
 
 }
