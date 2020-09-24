@@ -1,6 +1,7 @@
 package com.lwn.use;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwn.BaseTest;
 import com.lwn.model.entity.People;
 import com.lwn.model.entity.Student;
@@ -11,6 +12,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
+import java.sql.Wrapper;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -137,9 +140,22 @@ public class TestData extends BaseTest {
     @Rollback(false)
     public void testCRUD() {
 
-        Student stu = new Student();
-        stu.setName("斗尊强者");
-        studentMapper.insert(stu);
+        // Student stu = new Student();
+//        stu.setName("斗尊强者");
+//        studentMapper.insert(stu);
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("id", "name", "is_del");
+        List<Student> students = studentMapper.selectList(queryWrapper);
+        students.forEach(System.out::println);
 
+    }
+
+    @Test
+    @Rollback(false)
+    public void testDelete() {
+        Student student = new Student();
+        student.setId(1);
+
+        studentMapper.deleteById(student.getId());
     }
 }
