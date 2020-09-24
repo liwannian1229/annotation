@@ -1,6 +1,10 @@
 package com.lwn.singletest;
 
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+import com.lwn.BaseTest;
+import com.lwn.model.entity.Student;
 import common.RedisUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -14,7 +18,7 @@ import java.util.Random;
  * @author liwannian
  * @date 2020年9月11日17点58分17点58分
  */
-public class TestUtils {
+public class TestUtils extends BaseTest {
 
     @Test
     public void testA() {
@@ -80,12 +84,8 @@ public class TestUtils {
 
     @Test
     public void testToJson() {
-/*
         Student student = new Student();
         student.setName("wannian");
-        student.setHeight("172");
-        student.setSex("男");
-        student.setWeight("123");
 
         Gson gson = new Gson();
         String s = gson.toJson(student);
@@ -97,7 +97,7 @@ public class TestUtils {
         System.out.println(JSON.toJSON(s));
 
         // 是否相等
-        System.out.println(s == JSON.toJSON(s));*/
+        System.out.println(s == JSON.toJSON(s));
     }
 
     // 随机生成11位手机号

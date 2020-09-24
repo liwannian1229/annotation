@@ -1,4 +1,4 @@
-package com.lwn.model.dao;
+package com.lwn.model.mapper;
 
 import com.lwn.model.entity.People;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author liwannian
  * @since 2020-09-24
  */
-public interface PeopleDao extends BaseMapper<People> {
+public interface PeopleMapper extends BaseMapper<People> {
 
 }

@@ -2,50 +2,50 @@ package com.lwn.controller;
 
 import com.lwn.annotation.MyAnnotation;
 import com.lwn.annotation.MyAnnotation_1;
+import com.lwn.token.TokenService;
 import common.CommonUtil;
-import token.TokenService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import response.ResponseResult;
 
 /**
  * @author liwannian
  * @date 2020年9月11日17点58分17点58分
  */
-@RestController
 @Slf4j
-public class HelloWorld {
+@RestController
+public class HelloWorldController {
 
     @Autowired
     private TokenService tokenService;
-    private Logger log1;
 
     @GetMapping("/getToken")
-    public String getToken() {
+    public ResponseResult<String> getToken() {
 
-        return tokenService.createToken();
+        return ResponseResult.successResult(tokenService.createToken());
     }
 
     @PostMapping("/hello")
     @MyAnnotation
-    public StringBuilder hello(int num) {
+    public ResponseResult<StringBuilder> hello(@Param("num") int num) {
 
-        return CommonUtil.output(num);
+        return ResponseResult.successResult(CommonUtil.output(num));
     }
 
     @PostMapping("/hello1")
     @MyAnnotation_1(false)
-    public String hello1() {
+    public ResponseResult<String> hello1() {
 
-        return "访问hello1成功";
+        return ResponseResult.successResult("访问hello1成功", null);
     }
 
     @PostMapping("/hello2")
     @MyAnnotation_1
-    public String hello2() {
+    public ResponseResult<String> hello2() {
 
         log.debug("debug");// 没有配置日志文件 默认日志级别为info,低于info的debug不会显示
         log.info("info");
@@ -53,7 +53,9 @@ public class HelloWorld {
         log.error("error");
         log.trace("trace");
 
-        return "hello2";
+        return ResponseResult.successResult("访问hello2成功", null);
+
     }
 
 }
+

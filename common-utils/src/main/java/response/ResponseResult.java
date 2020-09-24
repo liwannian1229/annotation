@@ -9,8 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ResponseResult<T> {
 
     private String message;
+
     private String code;
+
     private boolean success;
+    
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 

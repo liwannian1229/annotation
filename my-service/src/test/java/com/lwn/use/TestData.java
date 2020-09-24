@@ -2,7 +2,14 @@ package com.lwn.use;
 
 
 import com.lwn.BaseTest;
+import com.lwn.model.entity.People;
+import com.lwn.model.entity.Student;
+import com.lwn.model.mapper.PeopleMapper;
+import com.lwn.model.mapper.StudentMapper;
+import common.BeanUtils;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -11,18 +18,21 @@ import java.util.function.Supplier;
 
 public class TestData extends BaseTest {
 
+    @Autowired
+    private PeopleMapper peopleMapper;
+
+    @Autowired
+    private StudentMapper studentMapper;
+
     @Test
     public void testBeanUtils() {
 
-      /*  Student stu = new Student();
-        stu.setHeight("身高");
-        stu.setWeight("体重");
+        Student stu = new Student();
         stu.setName("学生姓名:小李");
-        stu.setSex("学生性别:男");
 
         People people = new People();
         BeanUtils.acceptObject(stu, people);
-        System.out.println(people.getSex());*/
+        System.out.println(people.getName());
     }
 
     @Test
@@ -51,15 +61,15 @@ public class TestData extends BaseTest {
         /**
          * 测试Function
          */
-       /* People people = new People();
+        People people = new People();
         // stu就是Student,第一个泛型类型
         testFunction(stu -> {
-            stu.setWeight("120");
+            stu.setName("120");
             BeanUtils.acceptObject(stu, people);
 
             // 返回值是第二个泛型类型
             return people;
-        });*/
+        });
         /**
          * 测试supplier
          */
@@ -85,10 +95,9 @@ public class TestData extends BaseTest {
     }
 
     // 函数
-  /*  public String testFunction(Function<Student, People> function) {
+    public String testFunction(Function<Student, People> function) {
 
         Student student = new Student();
-        student.setHeight("172cm");
         student.setName("wannian");
         People people = new People();
         BeanUtils.acceptObject(student, people);
@@ -98,7 +107,7 @@ public class TestData extends BaseTest {
 
         return apply.toString();
 
-    }*/
+    }
 
     //供应者
     public String testSupplier(Supplier<String> supplier) {
@@ -121,6 +130,16 @@ public class TestData extends BaseTest {
 
         // 参数类型为泛型类型String,返回值为boolean
         return predicate.test("谓语");
+
+    }
+
+    @Test
+    @Rollback(false)
+    public void testCRUD() {
+
+        Student stu = new Student();
+        stu.setName("斗尊强者");
+        studentMapper.insert(stu);
 
     }
 }

@@ -44,26 +44,26 @@ public class CommonUtils {
                 .setDriverName(driver);
     }
 
-    // 配置
+    // 全局配置
     private static GlobalConfig globalConfig() {
         return new GlobalConfig()
                 .setAuthor(Config.AUTHOR)
-                .setOutputDir(Config.outputDir)
+                //.setOutputDir(Config.outputDir)
                 .setFileOverride(true) // 是否覆盖已有文件
-                .setOpen(true) // 是否打开输出目录
+                .setOpen(false) // 是否打开输出目录
                 .setDateType(DateType.TIME_PACK) // 时间采用java 8，（操作工具类：JavaLib => DateTimeUtils）
                 .setActiveRecord(true)// 不需要ActiveRecord特性的请改为false
                 .setEnableCache(false)// XML 二级缓存
-                .setBaseResultMap(false)// XML ResultMap
-                .setBaseColumnList(false)// XML columList
+                .setBaseResultMap(true)// XML ResultMap
+                .setBaseColumnList(true)// XML columnList
                 .setKotlin(false) //是否生成 kotlin 代码
                 // 自定义文件命名，注意 %s 会自动填充表实体属性！
-                .setEntityName(Config.FILE_NAME_MODEL)
+                /*.setEntityName(Config.FILE_NAME_MODEL)
                 .setMapperName(Config.FILE_NAME_DAO)
-                .setXmlName(Config.FILE_NAME_XML)
-                .setServiceName(Config.FILE_NAME_SERVICE)
-                .setServiceImplName(Config.FILE_NAME_SERVICE_IMPL)
-                .setControllerName(Config.FILE_NAME_CONTROLLER)
+                .setXmlName(Config.FILE_NAME_XML)*/
+                // .setServiceName(Config.FILE_NAME_SERVICE)
+                //.setServiceImplName(Config.FILE_NAME_SERVICE_IMPL)
+                //.setControllerName(Config.FILE_NAME_CONTROLLER)
                 .setIdType(IdType.ASSIGN_ID) // 主键类型
                 .setSwagger2(Config.SWAGGER_SUPPORT) // model swagger2
 //                if (!serviceNameStartWithI)
@@ -91,16 +91,16 @@ public class CommonUtils {
                 ;
     }
 
-    // 包信息配置
+    // 包名信息配置
     private static PackageConfig packageConfig(String packageName) {
         return new PackageConfig()
                 .setParent(packageName)
-                .setController(Config.PACKAGE_NAME_CONTROLLER)
+                //.setController(Config.PACKAGE_NAME_CONTROLLER)
                 .setEntity(Config.PACKAGE_NAME_MODEL)
-                .setMapper(Config.PACKAGE_NAME_DAO)
-                .setXml(Config.PACKAGE_NAME_XML)
-                .setService(Config.PACKAGE_NAME_SERVICE)
-                .setServiceImpl(Config.PACKAGE_NAME_SERVICE_IMPL)
+                .setMapper(Config.PACKAGE_NAME_MAPPER)
+                // .setXml(Config.PACKAGE_NAME_XML)
+                // .setService(Config.PACKAGE_NAME_SERVICE)
+                // .setServiceImpl(Config.PACKAGE_NAME_SERVICE_IMPL)
                 ;
     }
 
@@ -109,25 +109,61 @@ public class CommonUtils {
      * @return
      */
     private static InjectionConfig injectionConfig(final PackageConfig packageConfig) {
+
+        // 自定义配置
         InjectionConfig injectionConfig = new InjectionConfig() {
             @Override
             public void initMap() {
                 // to do nothing
             }
         };
-        List<FileOutConfig> fileOutConfigList = new ArrayList<FileOutConfig>();
-        fileOutConfigList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
+
+        List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
+
+        focList.add(new FileOutConfig("/templates/mapper.xml.vm") {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                // 自定义输入文件名称
+                // 自定义Mapper.xml文件名称
                 if (StringUtils.isEmpty(packageConfig.getModuleName())) {
-                    return Config.projectPath + "/src/main/resources/mapper/" + tableInfo.getXmlName() + StringPool.DOT_XML;
+                    return Config.projectPath + "/repo/src/main/resources/mapping/" + tableInfo.getXmlName() + StringPool.DOT_XML;
                 } else {
-                    return Config.projectPath + "/src/main/resources/mapper/" + packageConfig.getModuleName() + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
+                    return Config.projectPath + "/repo/src/main/resources/mapping/" + packageConfig.getModuleName() + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
                 }
             }
         });
-        injectionConfig.setFileOutConfigList(fileOutConfigList);
+
+        focList.add(new FileOutConfig("/templates/entity.java.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义Entity文件名跟生成路径
+                return Config.projectPath + "/repo/src/main/java/com/lwn/model/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+            }
+        });
+
+        focList.add(new FileOutConfig("/templates/mapper.java.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义Mapper类文件名和生成路径
+                return Config.projectPath + "/repo/src/main/java/com/lwn/model/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
+            }
+        });
+
+        /*focList.add(new FileOutConfig("/templates/controller.java.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义Controller类文件名和生成路径
+                return Config.projectPath + "/my-service/src/main/java/com/lwn/controller/" + tableInfo.getEntityName() + "Controller" + StringPool.DOT_JAVA;
+            }
+        });
+
+        focList.add(new FileOutConfig("/templates/service.java.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义Service类文件名和生成路径
+                return Config.projectPath + "/my-service/src/main/java/com/lwn/service/" + tableInfo.getEntityName() + "Service" + StringPool.DOT_JAVA;
+            }
+        });*/
+        injectionConfig.setFileOutConfigList(focList);
         return injectionConfig;
     }
 
@@ -164,11 +200,11 @@ public class CommonUtils {
     public static void execute(DbType dbType, String dbUrl, String username, String password, String driver,
                                String[] tablePrefixes, String[] tableNames, String packageName, String[] fieldPrefixes) {
         GlobalConfig globalConfig = globalConfig();
-        globalConfig.setOutputDir(Config.outputDir);
+        // globalConfig.setOutputDir(Config.outputDir);// 不输出
         DataSourceConfig dataSourceConfig = dataSourceConfig(dbType, dbUrl, username, password, driver);
         StrategyConfig strategyConfig = strategyConfig(tablePrefixes, tableNames, fieldPrefixes);
         PackageConfig packageConfig = packageConfig(packageName);
-//        InjectionConfig injectionConfig = injectionConfig(packageConfig);
+        InjectionConfig injectionConfig = injectionConfig(packageConfig);
         AbstractTemplateEngine templateEngine = getTemplateEngine();
         new AutoGenerator()
                 .setGlobalConfig(globalConfig)
@@ -176,7 +212,7 @@ public class CommonUtils {
                 .setStrategy(strategyConfig)
                 .setPackageInfo(packageConfig)
                 .setTemplateEngine(templateEngine)
-                //.setCfg(injectionConfig)
+                .setCfg(injectionConfig)
                 .execute();
     }
 

@@ -1,4 +1,4 @@
-package token;
+package com.lwn.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisService {
+
     @Autowired
     private RedisTemplate redisTemplate;
 

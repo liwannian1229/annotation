@@ -1,4 +1,4 @@
-package token;
+package com.lwn.token;
 
 import exception.AnnotationException;
 import org.springframework.beans.factory.annotation.Autowired;

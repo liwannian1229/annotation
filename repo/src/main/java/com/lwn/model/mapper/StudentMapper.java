@@ -1,4 +1,4 @@
-package com.lwn.model.dao;
+package com.lwn.model.mapper;
 
 import com.lwn.model.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author liwannian
  * @since 2020-09-24
  */
-public interface StudentDao extends BaseMapper<Student> {
+public interface StudentMapper extends BaseMapper<Student> {
 
 }
