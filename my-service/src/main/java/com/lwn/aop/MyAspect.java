@@ -1,8 +1,9 @@
 package com.lwn.aop;
 
 import com.lwn.annotation.MyAnnotation_1;
+import com.lwn.annotation.TokenValidator;
+import com.lwn.exception.AnnotationException;
 import com.lwn.token.TokenService;
-import exception.AnnotationException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -42,30 +43,30 @@ public class MyAspect {
 
     }
 
-    @Around("pointcut1()")
+    @Pointcut("@annotation(com.lwn.annotation.TokenValidator)||@within(com.lwn.annotation.TokenValidator)")
+    public void pointcutToken() {
+
+    }
+
+    @Around("pointcutToken()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
-//        ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        assert sra != null;
-//        HttpServletRequest request = sra.getRequest();
-//        request.getHeader("token");
-//        request.getHeader("Authorization");
         Signature signature = pjp.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
-        MyAnnotation_1 methodAnnotation = method.getAnnotation(MyAnnotation_1.class);
+        TokenValidator methodAnnotation = method.getAnnotation(TokenValidator.class);
 
         // 方法优先级大于类
         if (methodAnnotation == null) {
             log.info("验证token,注解作用在类上");
-            MyAnnotation_1 classAnnotation = pjp.getTarget().getClass().getAnnotation(MyAnnotation_1.class);
+            TokenValidator classAnnotation = pjp.getTarget().getClass().getAnnotation(TokenValidator.class);
             if (classAnnotation != null) {
-                tokenService.checkToken_1(classAnnotation.value());
+                tokenService.checkTokenIsValid(classAnnotation.value());
             }
 
         } else {
             log.info("验证token,注解作用在方法上");
-            tokenService.checkToken_1(methodAnnotation.value());
+            tokenService.checkTokenIsValid(methodAnnotation.value());
         }
 
         return pjp.proceed();

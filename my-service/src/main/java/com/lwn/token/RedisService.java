@@ -13,22 +13,19 @@ public class RedisService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    public boolean setEx(String key, Object value, Long expireTime) {
-
-        boolean result = false;
+    public void setEx(String key, Object value, long expireTime) {
 
         try {
             ValueOperations ops = redisTemplate.opsForValue();
             ops.set(key, value);
-            redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+            if (expireTime != -1) {
 
-            result = true;
+                redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        return result;
     }
 
     public boolean exists(String key) {
