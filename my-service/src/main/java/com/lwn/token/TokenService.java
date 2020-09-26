@@ -48,7 +48,7 @@ public class TokenService {
         JwtBuilder builder = Jwts.builder()
                 .setSubject(ro.getUsername() + ":" + ro.getPassword())
                 .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "liwannian")
+                .signWith(SignatureAlgorithm.HS256, "itcast")
                 .setExpiration(new Date(exp));
         redisUtils.set(Const.TOKEN + builder.compact(), userInfo.getId(), tokenTimeOut);
         redisUtils.set(Const.USER_INFO + userInfo.getId(), userInfo, tokenTimeOut);
@@ -70,7 +70,7 @@ public class TokenService {
             }
         } else {
             UserInfo userInfo = redisUtils.get(Const.USER_INFO + userInfoId, UserInfo.class, tokenTimeOut);
-            Claims claims = Jwts.parser().setSigningKey("liwannian").parseClaimsJws(token).getBody();
+            Claims claims = Jwts.parser().setSigningKey("itcast").parseClaimsJws(token).getBody();
             if (!claims.getSubject().equals(userInfo.getName() + ":" + userInfo.getPassword()) && (claims.getExpiration().getTime() < new Date().getTime())) {
                 if (isCheck) {
                     throw new TokenInValidException("token失效");

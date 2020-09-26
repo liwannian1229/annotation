@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>annotation</artifactId>
-        <groupId>org.example</groupId>
+        <groupId>com.lwn</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -15,13 +15,13 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>com.lwn</groupId>
             <artifactId>common-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>com.lwn</groupId>
             <artifactId>repo</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

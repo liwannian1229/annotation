@@ -2,8 +2,9 @@ package com.lwn.data;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwn.BaseTest;
-import com.lwn.common.BeanUtils;
+import com.lwn.common.BeanUtil;
 import com.lwn.model.entity.People;
 import com.lwn.model.entity.Student;
 import com.lwn.model.entity.UserInfo;
@@ -38,7 +39,7 @@ public class TestData extends BaseTest {
         stu.setName("学生姓名:小李");
 
         People people = new People();
-        BeanUtils.acceptObject(stu, people);
+        BeanUtil.acceptObject(stu, people);
         System.out.println(people.getName());
     }
 
@@ -72,7 +73,7 @@ public class TestData extends BaseTest {
         // stu就是Student,第一个泛型类型
         testFunction(stu -> {
             stu.setName("120");
-            BeanUtils.acceptObject(stu, people);
+            BeanUtil.acceptObject(stu, people);
 
             // 返回值是第二个泛型类型
             return people;
@@ -107,7 +108,7 @@ public class TestData extends BaseTest {
         Student student = new Student();
         student.setName("wannian");
         People people = new People();
-        BeanUtils.acceptObject(student, people);
+        BeanUtil.acceptObject(student, people);
 
         // 入参类型是第一个泛型类型Student,返回值类型是第二个泛型类型People
         People apply = function.apply(student);
@@ -161,6 +162,20 @@ public class TestData extends BaseTest {
 
     @Test
     @Rollback(false)
+    public void testInsert() {
+        UserInfo userInfo = new UserInfo();
+        for (int i = 0; i < 10; i++) {
+
+            userInfo.setName(i + "增加操作");
+            userInfo.setPassword(i + "3333333");
+            userInfo.setSex(i == 0 ? 0 : 1);
+            userInfoMapper.insert(userInfo);
+        }
+
+    }
+
+    @Test
+    @Rollback(false)
     public void testDelete() {
         Student student = new Student();
         student.setId(1);
@@ -175,10 +190,21 @@ public class TestData extends BaseTest {
         student.setId(1);
         student.setName("大乱斗亚索变成瑞文");
         QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-//        studentMapper.updateById(student);
+        //  studentMapper.updateById(student);
     }
 
     @Test
     public void testMD5() {
+    }
+
+    // 测试分页
+    @Test
+    public void testSelectPage() {
+
+        Page<UserInfo> page = new Page<>(1, 3);  //当前页对象，每页3个
+        userInfoMapper.selectPage(page, null);
+
+        page.getRecords().forEach(System.out::println); //获取当前页对象遍历打印
+
     }
 }

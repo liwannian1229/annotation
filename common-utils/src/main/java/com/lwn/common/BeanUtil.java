@@ -7,17 +7,17 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 @Slf4j
-public class BeanUtils<T> {
+public class BeanUtil<T> {
 
     private Class<T> targetClass;
 
-    private BeanUtils(Class<T> targetClass) {
+    private BeanUtil(Class<T> targetClass) {
         this.targetClass = targetClass;
     }
 
-    public static <T> BeanUtils<T> target(Class<T> targetClass) {
+    public static <T> BeanUtil<T> target(Class<T> targetClass) {
 
-        return new BeanUtils<>(targetClass);
+        return new BeanUtil<>(targetClass);
     }
 
     private T createTarget() {
