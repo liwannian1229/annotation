@@ -44,7 +44,7 @@ public class TokenService {
         UserInfo userInfo = select.get(0);
 
         long now = System.currentTimeMillis();//当前时间
-        long exp = now + 1000 * 60;//过期时间为1分钟
+        long exp = now + 1000 * 60 * 10;//过期时间为10分钟
         JwtBuilder builder = Jwts.builder()
                 .setSubject(ro.getUsername() + ":" + ro.getPassword())
                 .setIssuedAt(new Date())

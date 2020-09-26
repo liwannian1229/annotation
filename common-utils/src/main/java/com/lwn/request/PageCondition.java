@@ -15,9 +15,9 @@ public class PageCondition {
     private int pageSize = 10;
 
     /**
-     * 值为类的字段
+     * 排序字段
      */
-    private String sort = "";
+    private String sort = "id";
 
     /**
      * 排序方式

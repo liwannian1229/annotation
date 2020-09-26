@@ -142,7 +142,6 @@ public class TestData extends BaseTest {
     }
 
     @Test
-    @Rollback(false)
     public void testSelect() {
 
         // Student stu = new Student();
@@ -152,18 +151,18 @@ public class TestData extends BaseTest {
         queryWrapper.select("id", "name", "is_del");
         List<Student> students = studentMapper.selectList(queryWrapper);
         students.forEach(System.out::println);*/
-        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+       /* QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("id,name,password,sex,is_del");
         List<UserInfo> select = userInfoMapper.selectList(queryWrapper);
         UserInfo userInfo = select.get(0);
-        System.out.println(userInfo.toString());
+        System.out.println(userInfo.toString());*/
 
     }
 
     @Test
     @Rollback(false)
     public void testInsert() {
-        UserInfo userInfo = new UserInfo();
+       /* UserInfo userInfo = new UserInfo();
         for (int i = 0; i < 10; i++) {
 
             userInfo.setName(i + "增加操作");
@@ -171,25 +170,25 @@ public class TestData extends BaseTest {
             userInfo.setSex(i == 0 ? 0 : 1);
             userInfoMapper.insert(userInfo);
         }
-
+*/
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        Student student = new Student();
+       /* Student student = new Student();
         student.setId(1);
 
-        studentMapper.deleteById(student.getId());
+        studentMapper.deleteById(student.getId());*/
     }
 
     @Test
     @Rollback(false)
     public void testUpdate() {
-        Student student = new Student();
+        /*Student student = new Student();
         student.setId(1);
         student.setName("大乱斗亚索变成瑞文");
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();*/
         //  studentMapper.updateById(student);
     }
 
@@ -201,10 +200,13 @@ public class TestData extends BaseTest {
     @Test
     public void testSelectPage() {
 
-        Page<UserInfo> page = new Page<>(1, 3);  //当前页对象，每页3个
+        /*Page<UserInfo> page = new Page<>(1, 10, true);  //当前页对象，每页3个
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.select("id");
+        System.out.println(userInfoMapper.selectCount(queryWrapper));
         userInfoMapper.selectPage(page, null);
 
-        page.getRecords().forEach(System.out::println); //获取当前页对象遍历打印
+        page.getRecords().forEach(System.out::println); //获取当前页对象遍历打印*/
 
     }
 }
