@@ -1,9 +1,8 @@
 package com.lwn.aop;
 
-import com.lwn.annotation.MyAnnotation_1;
 import com.lwn.annotation.TokenValidator;
 import com.lwn.exception.AnnotationException;
-import com.lwn.token.TokenService;
+import com.lwn.auth.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

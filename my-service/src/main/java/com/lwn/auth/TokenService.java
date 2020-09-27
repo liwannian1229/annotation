@@ -1,19 +1,12 @@
-package com.lwn.token;
+package com.lwn.auth;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwn.enumeration.Const;
 import com.lwn.exception.AnnotationException;
-import com.lwn.exception.NotFoundException;
 import com.lwn.exception.TokenInValidException;
 import com.lwn.model.entity.UserInfo;
-import com.lwn.model.mapper.UserInfoMapper;
-import com.lwn.model.ro.UserInfoRo;
 import com.lwn.request.SessionHolder;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class TokenService {

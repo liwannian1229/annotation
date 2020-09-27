@@ -5,7 +5,7 @@ import com.lwn.enumeration.Const;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;
 import com.lwn.request.SessionHolder;
-import com.lwn.token.RedisUtils;
+import com.lwn.auth.RedisUtils;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 
 @Slf4j
 @Component

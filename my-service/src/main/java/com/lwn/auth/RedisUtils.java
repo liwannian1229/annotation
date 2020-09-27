@@ -1,4 +1,4 @@
-package com.lwn.token;
+package com.lwn.auth;
 
 import com.google.gson.Gson;
 import com.lwn.cache.CacheService;

@@ -5,9 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lwn.BaseTest;
 import com.lwn.model.entity.Student;
-import com.lwn.token.RedisUtils;
+import com.lwn.auth.RedisUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -19,6 +20,9 @@ import java.util.Random;
  * @date 2020年9月11日17点58分17点58分
  */
 public class TestUtils extends BaseTest {
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Test
     public void testA() {
@@ -123,7 +127,6 @@ public class TestUtils extends BaseTest {
 
     @Test
     public void testPrefix() {
-        RedisUtils redisUtils = new RedisUtils();
         String key = redisUtils.prefix("key");
 
         System.out.println(key);

@@ -4,7 +4,7 @@ import com.lwn.annotation.TokenValidator;
 import com.lwn.model.ro.UserInfoRo;
 import com.lwn.model.vo.LoginVo;
 import com.lwn.response.ResponseResult;
-import com.lwn.token.UserService;
+import com.lwn.auth.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

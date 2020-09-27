@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
@@ -12,12 +11,10 @@ import javax.validation.constraints.Size;
 public class UserInfoRo {
 
     @ApiModelProperty(value = "用户名", example = "lwn")
-    @NotBlank(message = "用户名不能为空")
-    @Size(max = 10, message = "用户名长度不能过长")
+    @Size(min = 1, max = 10, message = "用户名在1~10的字符")
     private String name;
 
     @ApiModelProperty(value = "密码", example = "12345678")
-    @NotBlank(message = "密码不能为空")
-    @Size(min = 8, message = "密码长度不能少于8位")
+    @Size(min = 8, message = "密码至少8位起")
     private String password;
 }

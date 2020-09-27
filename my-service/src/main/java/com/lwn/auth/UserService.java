@@ -1,10 +1,9 @@
-package com.lwn.token;
+package com.lwn.auth;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwn.common.BeanUtil;
 import com.lwn.common.MD5Util;
 import com.lwn.context.UserContext;
-import com.lwn.exception.AnnotationException;
 import com.lwn.exception.ValidationException;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;
