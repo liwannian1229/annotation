@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -130,27 +131,26 @@ public class MD5Util {
             cs[i + 1] = c;
             cs[i + 2] = data.charAt(i / 3 * 2 + 1);
         }
-        String signature = new String(cs);
-        return signature;
+        return new String(cs);
     }
 
     /**
      * 校验密码是否正确
      *
-     * @param data     要检测的数据
-     * @param signatur 加密后含随机盐的的密码
+     * @param data      要检测的数据
+     * @param signature 加密后含随机盐的的密码
      * @return 是否一样
      */
-    public static boolean checkSaltMD5(String data, String signatur) {
+    public static boolean checkSaltMD5(String data, String signature) {
         char[] cs1 = new char[32];
         char[] cs2 = new char[16];
         for (int i = 0; i < 48; i += 3) {
-            cs1[i / 3 * 2] = signatur.charAt(i);
-            cs1[i / 3 * 2 + 1] = signatur.charAt(i + 2);
-            cs2[i / 3] = signatur.charAt(i + 1);
+            cs1[i / 3 * 2] = signature.charAt(i);
+            cs1[i / 3 * 2 + 1] = signature.charAt(i + 2);
+            cs2[i / 3] = signature.charAt(i + 1);
         }
         String salt = new String(cs2);
-        return getMD5String(data + salt).equals(new String(cs1));
+        return Objects.equals(getMD5String(data + salt), new String(cs1));
     }
 
     /**

@@ -16,22 +16,22 @@
     </appender>
     <!--开发环境:打印控制台-->
     <springProfile name="dev">
-        <logger name="com.lwn.annotation.annotationdemo" level="DEBUG"/>
+        <logger name="com.lwn" level="DEBUG"/>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 
     <springProfile name="test">
-        <logger name="com.lwn.annotation.annotationdemo" level="DEBUG"/>
-        <root level="INFO">
+        <logger name="com.lwn" level="DEBUG"/>
+        <root level="DEBUG">
             <appender-ref ref="FILE"/>
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 
     <springProfile name="prod">
-        <logger name="com.lwn.annotation.annotationdemo" level="INFO"/>
+        <logger name="com.lwn" level="INFO"/>
         <root level="INFO">
             <appender-ref ref="FILE"/>
             <appender-ref ref="CONSOLE"/>

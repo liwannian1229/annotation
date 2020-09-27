@@ -9,13 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Title:日期工具类
- * Created time: 2016-9-2 下午2:52:11
- *
- * @author WangXuDong
- * @version 1.0
- */
 @Slf4j
 public class DateUtil {
     /**

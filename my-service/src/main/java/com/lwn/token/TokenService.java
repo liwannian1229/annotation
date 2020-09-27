@@ -3,6 +3,7 @@ package com.lwn.token;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwn.enumeration.Const;
 import com.lwn.exception.AnnotationException;
+import com.lwn.exception.NotFoundException;
 import com.lwn.exception.TokenInValidException;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;
@@ -12,6 +13,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,32 +31,8 @@ public class TokenService {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Autowired
-    private UserInfoMapper userInfoMapper;
-
     @Value("${token.timeout:600}")
     private Long tokenTimeOut;
-
-    public String createToken(UserInfoRo ro) {
-        // String uuid = UUID.randomUUID().toString();
-        // redisUtils.set(uuid, uuid, 600);
-        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("id,name,password,sex,is_del");
-        List<UserInfo> select = userInfoMapper.selectList(queryWrapper);
-        UserInfo userInfo = select.get(0);
-
-        long now = System.currentTimeMillis();//当前时间
-        long exp = now + 1000 * 60 * 10;//过期时间为10分钟
-        JwtBuilder builder = Jwts.builder()
-                .setSubject(ro.getUsername() + ":" + ro.getPassword())
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "itcast")
-                .setExpiration(new Date(exp));
-        redisUtils.set(Const.TOKEN + builder.compact(), userInfo.getId(), tokenTimeOut);
-        redisUtils.set(Const.USER_INFO + userInfo.getId(), userInfo, tokenTimeOut);
-
-        return builder.compact();
-    }
 
     public void checkTokenIsValid(boolean isCheck) {
         HttpServletRequest req = SessionHolder.getRequest();
@@ -69,6 +47,12 @@ public class TokenService {
                 }
             }
         } else {
+            if (StringUtils.isEmpty(userInfoId)) {
+                if (isCheck) {
+
+                    throw new AnnotationException("token失效");
+                }
+            }
             UserInfo userInfo = redisUtils.get(Const.USER_INFO + userInfoId, UserInfo.class, tokenTimeOut);
             Claims claims = Jwts.parser().setSigningKey("itcast").parseClaimsJws(token).getBody();
             if (!claims.getSubject().equals(userInfo.getName() + ":" + userInfo.getPassword()) && (claims.getExpiration().getTime() < new Date().getTime())) {

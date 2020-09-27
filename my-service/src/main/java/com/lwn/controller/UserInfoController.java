@@ -1,18 +1,16 @@
 package com.lwn.controller;
 
-import com.lwn.annotation.MyAnnotation;
-import com.lwn.annotation.MyAnnotation_1;
 import com.lwn.annotation.TokenValidator;
-import com.lwn.common.CommonUtil;
 import com.lwn.model.ro.UserInfoRo;
+import com.lwn.model.vo.LoginVo;
 import com.lwn.response.ResponseResult;
-import com.lwn.token.TokenService;
+import com.lwn.token.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @author liwannian
@@ -20,25 +18,36 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = "/hello")
+@RequestMapping(value = "/userInfo")
 @Api(value = "hello相关")
-public class HelloWorldController {
+public class UserInfoController {
 
     @Autowired
-    private TokenService tokenService;
+    private UserService userService;
 
-    @ApiOperation(value = "获取token")
-    @PostMapping("/getToken")
-    public ResponseResult<String> getToken(@RequestBody @Validated UserInfoRo ro) {
+    @ApiOperation(value = "登录获取token")
+    @PostMapping("/login")
+    public ResponseResult<LoginVo> login(@Validated @RequestBody UserInfoRo ro) {
 
-        return ResponseResult.successResult(tokenService.createToken(ro));
+        return ResponseResult.successResult(userService.doLogin(ro));
+    }
+
+    @ApiOperation(value = "注册用户")
+    @PostMapping("/register")
+    public ResponseResult<String> register(@Validated @RequestBody UserInfoRo ro) {
+
+        userService.createUser(ro);
+
+        return ResponseResult.successResult("注册成功!");
     }
 
     @TokenValidator
-    @PostMapping("/hello")
-    public ResponseResult<StringBuilder> hello(@RequestParam("num") int num) {
+    @GetMapping("/loginOut")
+    public ResponseResult<String> loginOut() {
 
-        return ResponseResult.successResult(CommonUtil.output(num));
+        userService.loginOut();
+
+        return ResponseResult.successResult("退出成功!");
     }
 
     @PostMapping("/hello1")

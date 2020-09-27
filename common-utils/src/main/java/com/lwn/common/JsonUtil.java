@@ -12,12 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Title:Json工具类
- *
- * @author WangXuDong
- * @version 1.0
- */
 public class JsonUtil {
     private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 

@@ -13,9 +13,21 @@ public class ResponseResult<T> {
     private String code;
 
     private boolean success;
-    
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
+
+    /**
+     * 返回成功结果
+     */
+    public static <T> ResponseResult<T> successResult() {
+        ResponseResult<T> result = new ResponseResult<>();
+        result.message = "";
+        result.code = ResultCode.SUCCESS;
+        result.success = true;
+
+        return result;
+    }
 
     /**
      * 返回成功结果

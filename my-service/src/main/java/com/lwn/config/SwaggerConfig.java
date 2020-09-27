@@ -1,7 +1,7 @@
 package com.lwn.config;
 
-import com.lwn.model.ro.UserInfoRo;
-import com.lwn.token.TokenService;
+import com.lwn.context.UserContext;
+import com.lwn.model.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,19 +31,20 @@ public class SwaggerConfig {
     private String profilesActive;
 
     @Autowired
-    private TokenService tokenService;
+    private UserContext userContext;
 
     @Bean
     public Docket createRestApi() {
 
-        UserInfoRo ro = new UserInfoRo();
-        ro.setPassword("12345678");
-        ro.setUsername("测试");
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(1000L);
+        userInfo.setPassword("12345678");
+        userInfo.setName("测试");
         ParameterBuilder aParameterBuilder = new ParameterBuilder();
         aParameterBuilder
                 .parameterType("header")
                 .name("token")
-                .defaultValue(tokenService.createToken(ro)) // 公钥加密默认值
+                .defaultValue(userContext.login(userInfo)) // 公钥加密默认值
                 .description("header中Authorization 模拟admin用户登录")
                 .modelRef(new ModelRef("string"))//指定参数值的类型
                 .required(false).build(); //非必需，这里是全局配置

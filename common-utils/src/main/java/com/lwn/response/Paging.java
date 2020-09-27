@@ -7,12 +7,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
+@Deprecated
 public class Paging<T> {
 
     private int pageIndex;
+
     private int pageSize;
+
     private int pageCount;
+
     private long totalCount;
+
     private Collection<T> data;
 
     public Paging() {

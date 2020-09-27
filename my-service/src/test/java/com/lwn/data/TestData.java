@@ -162,15 +162,12 @@ public class TestData extends BaseTest {
     @Test
     @Rollback(false)
     public void testInsert() {
-       /* UserInfo userInfo = new UserInfo();
+       /* People userInfo = new People();
         for (int i = 0; i < 10; i++) {
 
-            userInfo.setName(i + "增加操作");
-            userInfo.setPassword(i + "3333333");
-            userInfo.setSex(i == 0 ? 0 : 1);
-            userInfoMapper.insert(userInfo);
-        }
-*/
+            userInfo.setName("第" + i + 1 + "人");
+            peopleMapper.insert(userInfo);
+        }*/
     }
 
     @Test
