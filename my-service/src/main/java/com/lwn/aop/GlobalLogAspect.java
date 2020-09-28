@@ -1,6 +1,7 @@
 package com.lwn.aop;
 
 import com.alibaba.fastjson.JSON;
+import com.lwn.request.SessionHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -8,8 +9,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -31,10 +30,9 @@ public class GlobalLogAspect {
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         // 接收到请求，记录请求内容
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        assert attributes != null;
-        HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = SessionHolder.getRequest();
         // 记录下请求内容
+        assert request != null;
         log.info("请求地址 url:" + request.getRequestURL().toString());
         log.info("请求方法 http_method:" + request.getMethod());
         log.info("请求 ip:" + request.getRemoteAddr());
