@@ -1,18 +1,17 @@
 package com.lwn.controller;
 
 import com.lwn.annotation.TokenValidator;
+import com.lwn.auth.UserService;
 import com.lwn.model.ro.UserInfoRo;
 import com.lwn.model.vo.LoginVo;
 import com.lwn.response.ResponseResult;
-import com.lwn.auth.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import javafx.scene.media.Media;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

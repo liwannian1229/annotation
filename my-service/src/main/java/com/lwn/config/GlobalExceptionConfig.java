@@ -24,7 +24,7 @@ public class GlobalExceptionConfig implements WebMvcConfigurer {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResponseEntity<ResponseResult> exceptionHandler(Exception e) {
+    public ResponseEntity<ResponseResult<?>> exceptionHandler(Exception e) {
         if (e instanceof AnnotationException) {
             log.error(e.getMessage(), e);
             if (e instanceof TokenInValidException) {

@@ -62,40 +62,4 @@ public class TokenService {
         }
     }
 
-    public void checkToken(HttpServletRequest req) throws AnnotationException {
-
-        String token = req.getHeader("token");// getHeader()是获取HTTP头部信息,getParameter()是获取表单参数
-        if (StringUtils.isEmpty(token)) {
-            token = req.getParameter("token");
-            if (StringUtils.isEmpty(token)) {
-                throw new AnnotationException("token不存在");
-            }
-        }
-
-        /*if (!redisService.exists(token)) {
-            throw new AnnotationException("重复的操作");
-        }
-
-        boolean remove = redisService.remove(token);
-        if (!remove) {
-            throw new AnnotationException("重复的操作");
-        }*/
-    }
-
-    public void checkToken_1(boolean isCheck) throws AnnotationException {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        assert attributes != null;
-        HttpServletRequest req = attributes.getRequest();
-        String token = req.getHeader("token");// getHeader()是获取HTTP头部信息,getParameter()是获取表单参数
-        if (StringUtils.isEmpty(token)) {
-            token = req.getParameter("token");
-            if (StringUtils.isEmpty(token)) {
-                if (isCheck) {
-                    throw new AnnotationException("token不存在");
-                }
-            }
-        }
-
-
-    }
 }

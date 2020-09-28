@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020年9月18号15点27分
  */
 @Component
+@Deprecated
 public class GlobalInterceptor implements HandlerInterceptor {
 
     @Override

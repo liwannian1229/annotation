@@ -8,6 +8,7 @@ import java.io.IOException;
  * @author liwannian
  * @date 2020年9月18号15点27分
  */
+@Deprecated
 public class MyFilter implements Filter {
 
     @Override

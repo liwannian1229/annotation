@@ -1,14 +1,11 @@
 package com.lwn.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwn.annotation.TokenValidator;
 import com.lwn.model.entity.People;
 import com.lwn.model.ro.PeopleRo;
-import com.lwn.request.PageCondition;
 import com.lwn.response.ResponseResult;
 import com.lwn.service.PeopleService;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
