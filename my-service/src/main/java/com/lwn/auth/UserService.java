@@ -6,6 +6,7 @@ import com.lwn.common.CommonUtil;
 import com.lwn.common.ImageVerCodeUtil;
 import com.lwn.common.MD5Util;
 import com.lwn.context.UserContext;
+import com.lwn.enumeration.LoginStatusCode;
 import com.lwn.exception.NotFoundException;
 import com.lwn.exception.ValidationException;
 import com.lwn.model.entity.UserInfo;
@@ -22,6 +23,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 @Slf4j
@@ -56,7 +58,9 @@ public class UserService {
         String captcha = redisUtils.get("captcha:" + sessionId, 60 * 10);
         if (!captcha.equalsIgnoreCase(ro.getCaptcha()) || CommonUtil.isEmpty(captcha)) {
 
-            return new LoginVo("验证码错误!", "login error");
+            log.error("输入的验证码:" + ro.getCaptcha() + "错误");
+
+            return new LoginVo(null, LoginStatusCode.FAILURE, "验证码错误!");
         }
 
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
@@ -65,10 +69,14 @@ public class UserService {
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
         if (userInfo == null) {
 
-            return new LoginVo("密码或用户名错误!", "login error");
+            log.error("输入的用户名:" + ro.getName() + ",密码:" + ro.getPassword() + "错误");
+
+            return new LoginVo(null, LoginStatusCode.FAILURE, "密码或用户名错误!");
         }
 
-        return new LoginVo(userContext.login(BeanUtil.target(UserInfo.class).accept(userInfo)), "login success");
+        log.info(ro.getName() + " 登录成功!");
+
+        return new LoginVo(userContext.login(BeanUtil.target(UserInfo.class).accept(userInfo)), LoginStatusCode.SUCCESS, null);
     }
 
     // 注册
@@ -102,7 +110,7 @@ public class UserService {
         response.addHeader("Access-Control-Expose-Headers", "*");
 
         SessionHolder.getSession().setAttribute("sessionId", sessionId);
-        String captcha = ImageVerCodeUtil.outputVerifyImage(400, 100, response.getOutputStream(), 6);
+        String captcha = ImageVerCodeUtil.outputVerifyImage(400, 100, response.getOutputStream(), 4);
 
         redisUtils.set("captcha:" + sessionId, captcha, 10 * 60);
     }

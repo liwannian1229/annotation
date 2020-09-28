@@ -11,10 +11,14 @@ public class LoginVo {
 
     private String loginStatusCode;
 
-    public LoginVo(String token, String loginStatusCode) {
+    private String errorMessage;
+
+    public LoginVo(String token, String loginStatusCode, String errorMessage) {
 
         this.token = token;
-        
+
         this.loginStatusCode = loginStatusCode;
+
+        this.errorMessage = errorMessage;
     }
 }

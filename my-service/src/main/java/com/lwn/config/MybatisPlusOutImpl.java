@@ -6,7 +6,6 @@ import org.apache.ibatis.logging.Log;
 /**
  * @Description MybatisPlusOutImpl，自定义 直接使用控制台输出日志
  * 暂时没有用到
- * @Author zhengkai.blog.csdn.net
  **/
 @Slf4j
 @Deprecated
