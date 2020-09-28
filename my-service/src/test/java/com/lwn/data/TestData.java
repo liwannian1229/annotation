@@ -162,11 +162,11 @@ public class TestData extends BaseTest {
     @Test
     @Rollback(false)
     public void testInsert() {
-       /* People userInfo = new People();
+       /* Student userInfo = new Student();
         for (int i = 0; i < 10; i++) {
 
             userInfo.setName("第" + i + 1 + "人");
-            peopleMapper.insert(userInfo);
+            studentMapper.insert(userInfo);
         }*/
     }
 

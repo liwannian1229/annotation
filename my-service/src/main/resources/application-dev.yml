@@ -1,0 +1,27 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: redis123
+    database: 1
+  datasource:
+    url: jdbc:mysql://localhost:3306/db?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+    # 以下两行属性用于在执行DML脚本时对数据库进行身份验证(如果它们与以前的属性不同)
+    # spring.datasource.data-username=root
+    # spring.datasource.data-password=admin
+    # 以下两行属性用于对数据库进行身份验证
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      max-active: 20
+      min-idle: 8
+      initial-size: 10
+      max-wait: 60000
+token:
+  timeout: 600
+server:
+  port: 8083
+my-annotation:
+  key-prefix: my_project
