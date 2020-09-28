@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 
 @Slf4j
 @Component
-public class ScheduleTask<T> {
+public class ScheduleTask {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
