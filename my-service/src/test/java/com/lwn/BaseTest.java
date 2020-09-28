@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = AnnotationApplication.class)// 指定spring-boot的启动类
+@SpringBootTest(classes = MyServiceApp.class)// 指定spring-boot的启动类
 @Transactional
 public abstract class BaseTest {
 

@@ -4,18 +4,15 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-/**
- * @author liwannian
- * @date 2020年9月11日17点58分17点58分
- */
-@SpringBootApplication(scanBasePackages = "com.lwn")
+@SpringBootApplication
 @MapperScan(basePackages = "com.lwn.model.mapper")
 @EnableAsync
-public class AnnotationApplication {
-
+@EnableScheduling
+public class ScheduleServiceApp {
     public static void main(String[] args) {
-        SpringApplication.run(AnnotationApplication.class, args);
-    }
 
+        SpringApplication.run(ScheduleServiceApp.class, args);
+    }
 }
