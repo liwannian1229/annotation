@@ -1,5 +1,6 @@
-package com.lwn.jwt;
+package com.lwn.more;
 
+import com.lwn.common.ImageVerCodeUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -105,5 +106,14 @@ public class TestJwt {
         System.out.println("签发时间:" + sdf.format(claims.getIssuedAt()));
         System.out.println("过期时间:" + sdf.format(claims.getExpiration()));
         System.out.println("当前时间:" + sdf.format(new Date()));
+    }
+
+    @Test
+    public void testGenerateNum() {
+       /* StringBuilder stringBuilder = CommonUtil.generateRandomNumber(11);
+        System.out.println(stringBuilder);*/
+        String s = ImageVerCodeUtil.generateVerifyCode(6);
+        System.out.println(s);
+
     }
 }

@@ -7,10 +7,15 @@ import com.lwn.response.ResponseResult;
 import com.lwn.auth.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javafx.scene.media.Media;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author liwannian
@@ -50,11 +55,10 @@ public class UserInfoController {
         return ResponseResult.successResult("退出成功!");
     }
 
-    @PostMapping("/hello1")
-    @TokenValidator(false)
-    public ResponseResult<String> hello1() {
-
-        return ResponseResult.successResult("访问hello1成功", null);
+    @GetMapping("/getCaptcha")
+    @ApiOperation(value = "获取验证码", produces = MediaType.IMAGE_JPEG_VALUE)
+    public void generateCaptcha(HttpServletResponse response) throws IOException {
+        userService.generateCaptcha(response);
     }
 
     @PostMapping("/hello2")

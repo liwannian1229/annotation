@@ -2,17 +2,27 @@ package com.lwn.auth;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwn.common.BeanUtil;
+import com.lwn.common.CommonUtil;
+import com.lwn.common.ImageVerCodeUtil;
 import com.lwn.common.MD5Util;
 import com.lwn.context.UserContext;
+import com.lwn.exception.NotFoundException;
 import com.lwn.exception.ValidationException;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;
 import com.lwn.model.ro.UserInfoRo;
 import com.lwn.model.vo.LoginVo;
+import com.lwn.request.SessionHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -24,18 +34,41 @@ public class UserService {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
+    @Autowired
+    private RedisUtils redisUtils;
+
     // 登录
     public LoginVo doLogin(UserInfoRo ro) {
+        String sessionId = null;
+        Cookie[] cookies = Objects.requireNonNull(SessionHolder.getRequest()).getCookies();
+        if (cookies != null) {
+            sessionId = Arrays.stream(cookies).filter(c -> c.getName().equals("sessionId")).map(Cookie::getValue).findFirst().orElse(null);
+        }
+        if (CommonUtil.isEmpty(sessionId)) {
+            sessionId = SessionHolder.getRequest().getHeader("sessionId");
+            if (CommonUtil.isEmpty(sessionId)) {
+                sessionId = SessionHolder.getRequest().getParameter("sessionId");
+                if (CommonUtil.isEmpty(sessionId)) {
+                    sessionId = (String) SessionHolder.getSession().getAttribute("sessionId");
+                }
+            }
+        }
+        String captcha = redisUtils.get("captcha:" + sessionId, 60 * 10);
+        if (!captcha.equalsIgnoreCase(ro.getCaptcha()) || CommonUtil.isEmpty(captcha)) {
+
+            return new LoginVo("验证码错误!", "login error");
+        }
+
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", ro.getName())
                 .eq("password", MD5Util.getMD5String(ro.getPassword()));
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
-        if (userInfo != null) {
+        if (userInfo == null) {
 
-            return new LoginVo(userContext.login(BeanUtil.target(UserInfo.class).accept(userInfo)), "login success");
+            return new LoginVo("密码或用户名错误!", "login error");
         }
 
-        return new LoginVo("密码或用户名错误!", "login error");
+        return new LoginVo(userContext.login(BeanUtil.target(UserInfo.class).accept(userInfo)), "login success");
     }
 
     // 注册
@@ -53,6 +86,25 @@ public class UserService {
 
         // 密码加密后入库
         userInfoMapper.insert(userInfo);
+    }
+
+    // 生成验证码
+    public void generateCaptcha(HttpServletResponse response) throws IOException {
+
+        String sessionId = SessionHolder.getSession().getId();
+        Cookie cookie = new Cookie("sessionId", sessionId);
+        cookie.setPath("/");
+        // 默认-1,即不存储cookie;0为退出即删除cookie;其他值为存储秒数
+        cookie.setMaxAge(0);
+
+        response.addCookie(cookie);
+        response.addHeader("sessionId", sessionId);
+        response.addHeader("Access-Control-Expose-Headers", "*");
+
+        SessionHolder.getSession().setAttribute("sessionId", sessionId);
+        String captcha = ImageVerCodeUtil.outputVerifyImage(400, 100, response.getOutputStream(), 6);
+
+        redisUtils.set("captcha:" + sessionId, captcha, 10 * 60);
     }
 
     // 退出登录

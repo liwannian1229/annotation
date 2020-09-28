@@ -4,6 +4,7 @@ package com.lwn.test;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lwn.BaseTest;
+import com.lwn.common.CommonUtil;
 import com.lwn.model.entity.Student;
 import com.lwn.auth.RedisUtils;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +33,7 @@ public class TestUtils extends BaseTest {
         //  System.out.println(Integer.toBinaryString(a));
 
         // 十进制转二进制输出
-        output(5);
+         output(5);
     }
 
     public void output(int ten) {

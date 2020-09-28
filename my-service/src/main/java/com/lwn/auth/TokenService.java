@@ -2,6 +2,7 @@ package com.lwn.auth;
 
 import com.lwn.enumeration.Const;
 import com.lwn.exception.AnnotationException;
+import com.lwn.exception.NoAuthException;
 import com.lwn.exception.TokenInValidException;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.request.SessionHolder;
@@ -41,18 +42,23 @@ public class TokenService {
         } else {
             if (StringUtils.isEmpty(userInfoId)) {
                 if (isCheck) {
-
                     throw new AnnotationException("token失效");
                 }
             }
             UserInfo userInfo = redisUtils.get(Const.USER_INFO + userInfoId, UserInfo.class, tokenTimeOut);
-            Claims claims = Jwts.parser().setSigningKey("itcast").parseClaimsJws(token).getBody();
-            if (!claims.getSubject().equals(userInfo.getName() + ":" + userInfo.getPassword()) && (claims.getExpiration().getTime() < new Date().getTime())) {
-                if (isCheck) {
-                    throw new TokenInValidException("token失效");
+            if (userInfo != null) {
+                // 刷新缓存
+                redisUtils.get(Const.USER_INFO + userInfoId, tokenTimeOut);
+                Claims claims = Jwts.parser().setSigningKey("itcast").parseClaimsJws(token).getBody();
+                if (!claims.getSubject().equals(userInfo.getName() + ":" + userInfo.getPassword()) && (claims.getExpiration().getTime() < new Date().getTime())) {
+                    if (isCheck) {
+                        throw new TokenInValidException("token失效");
+                    }
                 }
+                req.setAttribute(Const.CURRENT_USER, userInfo);
+            } else {
+                throw new NoAuthException("登录失效,请重新登录");
             }
-            req.setAttribute(Const.CURRENT_USER, userInfo);
         }
     }
 

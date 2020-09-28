@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
@@ -17,4 +18,8 @@ public class UserInfoRo {
     @ApiModelProperty(value = "密码", example = "12345678")
     @Size(min = 8, message = "密码至少8位起")
     private String password;
+
+    @ApiModelProperty(value = "用户名", example = "lwn")
+    @NotBlank(message = "验证码不能为空")
+    private String captcha;
 }

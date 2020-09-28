@@ -7,10 +7,12 @@ import java.util.UUID;
 
 /**
  * @author liwannian
- * @date 2020年9月11日17点58分17点58分
+ * @since 2020年9月11日17点58分17点58分
  */
 
 public class CommonUtil {
+
+    private static final String code = "";
 
     // 十进制数字转为二进制
     public static StringBuilder output(int ten) {
@@ -102,4 +104,17 @@ public class CommonUtil {
         return phone;
     }
 
+    // 获取一个指定长度的随机数
+    public static StringBuilder generateRandomNumber(int numberLength) {
+        if (numberLength <= 0) {
+            numberLength = 1;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < numberLength; i++) {
+            sb.append((int) (Math.random() * 10));
+        }
+
+        return sb;
+    }
 }
