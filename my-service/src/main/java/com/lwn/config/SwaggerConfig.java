@@ -45,7 +45,7 @@ public class SwaggerConfig {
                 .parameterType("header")
                 .name("token")
                 .defaultValue(userContext.login(userInfo)) // 公钥加密默认值
-                .description("header中Authorization 模拟admin用户登录")
+                .description("header中token 模拟admin用户登录")
                 .modelRef(new ModelRef("string"))//指定参数值的类型
                 .required(false).build(); //非必需，这里是全局配置
         List<Parameter> aParameters = new ArrayList<>();
