@@ -1,12 +1,15 @@
 package com.lwn.simple;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.google.gson.Gson;
-import com.lwn.common.AppleUtil;
-import com.lwn.common.ImageVerCodeUtil;
-import com.lwn.common.JsonUtil;
+import com.lwn.common.*;
 import com.lwn.model.entity.Student;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Random;
 
 public class TestOne {
 
@@ -50,8 +53,27 @@ public class TestOne {
     public void testGenerateNum() {
        /* StringBuilder stringBuilder = CommonUtil.generateRandomNumber(11);
         System.out.println(stringBuilder);*/
-        String s = ImageVerCodeUtil.generateVerifyCode(6);
-        System.out.println(s);
+//        String s = ImageVerCodeUtil.generateVerifyCode(6);
+//        System.out.println(s);
 
+        //JSONArray authKeys = AppleUtil.getAuthKeys();
+        //System.out.println(authKeys);
+
+//        System.out.println(RegexUtils.hasSpecialChar("@#$123"));
+//        System.out.println(RegexUtils.isPhoneNumber("3000000000"));
+        // System.out.println(RegexpUtils.isHardRegexpValidate("D:\\0.jpg", RegexpUtils.ICON_REGEXP));
+
+        String token = "annotation_lwn_";
+        token += CommonUtil.generateRandomNumber(new Random().nextInt((int) (Math.random() * 10) + 1));
+        token += ((System.currentTimeMillis()) + "").substring(0, 8) + CommonUtil.getUUID();
+        token = MD5Util.getMD5String(token);
+        // encoder编码器,decoder解码器
+        System.out.println(Base64.getEncoder().encodeToString((token == null ? "" : token).getBytes()));
+
+        System.out.println("编码之前:" + token);
+        System.out.println("编码之后:" + Base64.getEncoder().encodeToString((token.getBytes())));
+
+        System.out.println("解码之后:" + JsonUtil.toJson(Base64.getDecoder().decode(Base64.getEncoder().encodeToString((token.getBytes())))));
     }
+
 }

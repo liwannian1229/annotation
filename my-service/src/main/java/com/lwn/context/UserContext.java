@@ -1,21 +1,20 @@
 package com.lwn.context;
 
+import com.lwn.auth.RedisUtils;
 import com.lwn.common.CommonUtil;
+import com.lwn.common.MD5Util;
 import com.lwn.enumeration.Const;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;
 import com.lwn.request.SessionHolder;
-import com.lwn.auth.RedisUtils;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.Base64;
+import java.util.Random;
 
 @Slf4j
 @Component
@@ -51,7 +50,7 @@ public class UserContext {
     // login 登录
     public String login(UserInfo userInfo) {
 
-        String token = createToken(userInfo);
+        String token = createToken();
 
         redisUtils.set(Const.TOKEN + token, userInfo.getId(), tokenTimeOut);
         redisUtils.set(Const.USER_INFO + userInfo.getId(), userInfo, tokenTimeOut);
@@ -82,17 +81,14 @@ public class UserContext {
 
     }
 
-    public String createToken(UserInfo userInfo) {
+    public String createToken() {
+        String token = "annotation_lwn_";
+        token += CommonUtil.generateRandomNumber(new Random().nextInt((int) (Math.random() * 10) + 1));
+        token += ((System.currentTimeMillis()) + "").substring(0, 8) + CommonUtil.getUUID();
+        token = MD5Util.getMD5String(token);
 
-        long now = System.currentTimeMillis();//当前时间
-        long exp = now + 1000 * 60 * 10;//过期时间为10分钟
-        JwtBuilder builder = Jwts.builder()
-                .setSubject(userInfo.getName() + ":" + userInfo.getPassword())
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "itcast")
-                .setExpiration(new Date(exp));
-
-        return builder.compact();
+        // encoder编码器,decoder解码器
+        return Base64.getEncoder().encodeToString((token == null ? "" : token).getBytes());
     }
 
     public void updateCurrentUser(UserInfo userInfo) {

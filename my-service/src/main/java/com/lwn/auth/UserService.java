@@ -54,6 +54,9 @@ public class UserService {
             }
         }
         String captcha = redisUtils.get("captcha:" + sessionId, 60 * 10);
+        if (captcha == null || sessionId == null) {
+            throw new ValidationException("验证码不正确!");
+        }
         if (!captcha.equalsIgnoreCase(ro.getCaptcha()) || CommonUtil.isEmpty(captcha)) {
 
             log.error("输入的验证码:" + ro.getCaptcha() + "错误");

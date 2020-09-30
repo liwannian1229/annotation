@@ -12,10 +12,8 @@ import java.util.UUID;
 
 public class CommonUtil {
 
-    private static final String code = "";
-
     // 十进制数字转为二进制
-    public static StringBuilder output(int ten) {
+    public static StringBuilder TenToTwoOutPut(int ten) {
 
         StringBuilder outPrint = new StringBuilder();
         do {

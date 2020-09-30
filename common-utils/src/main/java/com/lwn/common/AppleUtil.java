@@ -19,7 +19,7 @@ public class AppleUtil {
      *
      * @return
      */
-    private static JSONArray getAuthKeys() {
+    public static JSONArray getAuthKeys() {
         String url = "https://appleid.apple.com/auth/keys";
         RestTemplate restTemplate = new RestTemplate();
         JSONObject json = restTemplate.getForObject(url, JSONObject.class);
