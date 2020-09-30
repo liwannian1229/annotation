@@ -5,4 +5,4 @@ spring:
     password: redis123
     database: 3
 server:
-  port: 8082
+  port: 9082

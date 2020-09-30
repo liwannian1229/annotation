@@ -3,6 +3,7 @@ package com.lwn.context;
 import com.lwn.auth.RedisUtils;
 import com.lwn.common.CommonUtil;
 import com.lwn.common.MD5Util;
+import com.lwn.enumeration.ClientType;
 import com.lwn.enumeration.Const;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;
@@ -54,6 +55,7 @@ public class UserContext {
 
         redisUtils.set(Const.TOKEN + token, userInfo.getId(), tokenTimeOut);
         redisUtils.set(Const.USER_INFO + userInfo.getId(), userInfo, tokenTimeOut);
+        redisUtils.set(Const.CLIENT_TYPE + ClientType.WEB, ClientType.WEB, tokenTimeOut);
 
         return token;
     }

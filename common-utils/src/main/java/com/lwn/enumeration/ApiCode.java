@@ -6,7 +6,7 @@ public enum ApiCode {
 
     VALIDATION_ERROR("error"), VALIDATION_SUCCESS("success");
 
-    private String value;
+    private final String value;
 
     ApiCode(String value) {
 
