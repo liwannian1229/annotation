@@ -3,8 +3,7 @@ package com.lwn.common;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,8 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class JsonUtil {
-    private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 
     /**
      * 将对象转换为json字符串
@@ -75,11 +74,8 @@ public class JsonUtil {
      * @return Map对象
      */
     public static Map<String, Object> jsonToObjectMap(String jsonStr) {
-        Map<String, Object> map
-                = JSON.parseObject(jsonStr, new TypeReference<Map<String, Object>>() {
+        return JSON.parseObject(jsonStr, new TypeReference<Map<String, Object>>() {
         });
-
-        return map;
     }
 
     /**
@@ -89,10 +85,9 @@ public class JsonUtil {
      * @return Map对象
      */
     public static Map<String, String> jsonToStrMap(String jsonStr) {
-        Map<String, String> map = JSON.parseObject(jsonStr,
+        return JSON.parseObject(jsonStr,
                 new TypeReference<Map<String, String>>() {
                 });
-        return map;
     }
 
     /**
@@ -103,7 +98,7 @@ public class JsonUtil {
      * @throws Exception
      */
     public static Map<String, Object> javabeanToMap(Object javaBean) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Method[] methods = javaBean.getClass().getDeclaredMethods();
         for (Method method : methods) {
             try {
@@ -132,12 +127,12 @@ public class JsonUtil {
      */
     public static List<Map<String, Object>> jsonToListOfObjectMap(String json) throws Exception {
         List<Object> lists = jsonToList(json, Object.class);
-        List<Map<String, Object>> listmaps = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> maps = new ArrayList<>();
         for (Object obj : lists) {
             Map<String, Object> map = javabeanToMap(obj);
-            listmaps.add(map);
+            maps.add(map);
         }
-        return listmaps;
+        return maps;
     }
 
     /**
@@ -149,13 +144,13 @@ public class JsonUtil {
      */
     public static List<Map<String, String>> jsonToListOfStrMap(String json) throws Exception {
         List<Object> lists = jsonToList(json, Object.class);
-        List<Map<String, String>> listmaps = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> maps = new ArrayList<>();
         for (Object obj : lists) {
             String jsonStr = toJson(obj);
             Map<String, String> map = jsonToStrMap(jsonStr);
-            listmaps.add(map);
+            maps.add(map);
         }
-        return listmaps;
+        return maps;
     }
 
     /**
