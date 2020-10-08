@@ -4,7 +4,7 @@ package com.lwn.design_patterns.prototype;
  * @author liwannian
  * @date 2020/10/8 16:53
  */
-class RealizeType implements Cloneable {
+public class RealizeType implements Cloneable {
 
     RealizeType() {
         System.out.println("具体原型创建成功");
@@ -16,12 +16,10 @@ class RealizeType implements Cloneable {
         return (RealizeType) super.clone();
     }
 
-    public static class ProtoTypeTest {
-        public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) throws CloneNotSupportedException {
 
-            RealizeType realizeType = new RealizeType();
-            RealizeType realizeType1 = (RealizeType) realizeType.clone();
-            System.out.println("realizeType==realizeType1:" + (realizeType == realizeType1));
-        }
+        RealizeType realizeType = new RealizeType();
+        RealizeType realizeType1 = (RealizeType) realizeType.clone();
+        System.out.println("realizeType==realizeType1:" + (realizeType == realizeType1));
     }
 }

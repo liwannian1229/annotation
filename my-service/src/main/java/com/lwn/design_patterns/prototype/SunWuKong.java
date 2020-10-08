@@ -8,7 +8,7 @@ import java.awt.*;
  * @author liwannian
  * @date 2020/10/8 17:12
  */
-class SunWuKong extends JPanel implements Cloneable {
+public class SunWuKong extends JPanel implements Cloneable {
 
     public SunWuKong() {
         JLabel l1 = new JLabel(new ImageIcon("C:\\Users\\Administrator\\Desktop\\Wukong.jpg"));
@@ -26,23 +26,23 @@ class SunWuKong extends JPanel implements Cloneable {
         return w;
     }
 
-    public static class ProtoTypeTest {
-        public static void main(String[] args) {
-            JFrame jf = new JFrame("原型模式测试");
-            // layout 布局
-            // 设置布局为网格布局一行两列
-            jf.setLayout(new GridLayout(1, 2));
-            Container container = jf.getContentPane();
+    public static void main(String[] args) {
+        JFrame jf = new JFrame("原型模式测试");
+        // layout 布局
+        // 设置布局为网格布局一行两列
+        jf.setLayout(new GridLayout(1, 2));
 
-            SunWuKong sunWuKong = new SunWuKong();
-            container.add(sunWuKong);
+        // 拿到容器 container
+        Container container = jf.getContentPane();
 
-            SunWuKong sunWuKong1 = (SunWuKong) sunWuKong.clone();
-            container.add(sunWuKong1);
-            jf.pack();
-            jf.setVisible(true);
-            jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        }
+        SunWuKong sunWuKong = new SunWuKong();
+        container.add(sunWuKong);
 
+        SunWuKong sunWuKong1 = (SunWuKong) sunWuKong.clone();
+        container.add(sunWuKong1);
+        jf.pack();
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 }
