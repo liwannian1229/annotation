@@ -76,4 +76,9 @@ public class TestOne {
         System.out.println("解码之后:" + JsonUtil.toJson(Base64.getDecoder().decode(Base64.getEncoder().encodeToString((token.getBytes())))));
     }
 
+    @Test
+    public void testPwd() {
+
+        System.out.println(MD5Util.getMD5String("12345678"));
+    }
 }

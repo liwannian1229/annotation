@@ -73,7 +73,7 @@ public class MybatisAutoGenerator {
         strategy.setLogicDeleteFieldName("is_del");
         //需要生成的表,为空,生成所有的表,多个表传数组
         //strategy.setInclude("".split(","));
-        strategy.setInclude(new String[]{"store"});
+        strategy.setInclude(new String[]{"people","student"});
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();

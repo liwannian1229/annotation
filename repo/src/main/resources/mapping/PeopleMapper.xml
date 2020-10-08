@@ -6,12 +6,13 @@
     <resultMap id="BaseResultMap" type="com.lwn.model.entity.People">
         <id column="id" property="id" />
         <result column="name" property="name" />
+        <result column="user_id" property="userId" />
         <result column="is_del" property="isDel" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, is_del
+        id, name, user_id, is_del
     </sql>
 
 </mapper>
