@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.google.gson.Gson;
 import com.lwn.common.*;
+import com.lwn.model.entity.People;
 import com.lwn.model.entity.Student;
+import com.lwn.thread.ThreadUtils;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -79,6 +82,24 @@ public class TestOne {
     @Test
     public void testPwd() {
 
-        System.out.println(MD5Util.getMD5String("12345678"));
+//        System.out.println(MD5Util.getMD5String("12345678"));
+        People people = new People();
+        people.setDel(true);
+        people.setUserId(4L);
+        people.setName("哈哈哈");
+        people.setId(4L);
+        System.out.println(JsonUtil.toJson(people));
+    }
+
+    @Test
+    public void testTimeStamp() {
+
+        System.out.println("开始时间:" + System.currentTimeMillis() / 1000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("结束时间:" + DateTime.now().getMillis() / 1000);
     }
 }
