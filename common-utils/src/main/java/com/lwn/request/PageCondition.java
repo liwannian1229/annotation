@@ -1,6 +1,6 @@
 package com.lwn.request;
 
-import com.lwn.enumeration.OrderType;
+import com.lwn.enums.OrderType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

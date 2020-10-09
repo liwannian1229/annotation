@@ -2,7 +2,7 @@ package com.lwn.response;
 
 import com.github.pagehelper.PageHelper;
 import com.lwn.common.BeanUtil;
-import com.lwn.enumeration.OrderType;
+import com.lwn.enums.OrderType;
 import com.lwn.request.PageCondition;
 import org.apache.commons.lang3.StringUtils;
 

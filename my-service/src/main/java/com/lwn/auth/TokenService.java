@@ -1,6 +1,6 @@
 package com.lwn.auth;
 
-import com.lwn.enumeration.Const;
+import com.lwn.enums.Const;
 import com.lwn.exception.AnnotationException;
 import com.lwn.exception.NoAuthException;
 import com.lwn.model.entity.UserInfo;

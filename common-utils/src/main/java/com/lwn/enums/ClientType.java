@@ -1,4 +1,4 @@
-package com.lwn.enumeration;
+package com.lwn.enums;
 
 public enum ClientType {
 

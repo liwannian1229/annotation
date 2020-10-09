@@ -1,4 +1,4 @@
-package com.lwn.enumeration;
+package com.lwn.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

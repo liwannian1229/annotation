@@ -6,7 +6,7 @@ import com.lwn.common.CommonUtil;
 import com.lwn.common.ImageVerCodeUtil;
 import com.lwn.common.MD5Util;
 import com.lwn.context.UserContext;
-import com.lwn.enumeration.LoginStatusCode;
+import com.lwn.enums.LoginStatusCode;
 import com.lwn.exception.ValidationException;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;

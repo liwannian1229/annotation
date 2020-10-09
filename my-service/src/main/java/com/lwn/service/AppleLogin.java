@@ -3,7 +3,7 @@ package com.lwn.service;
 import com.alibaba.fastjson.JSONObject;
 import com.lwn.common.AppleUtil;
 import com.lwn.context.UserContext;
-import com.lwn.enumeration.Const;
+import com.lwn.enums.Const;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.request.SessionHolder;
 import com.lwn.response.ResponseResult;

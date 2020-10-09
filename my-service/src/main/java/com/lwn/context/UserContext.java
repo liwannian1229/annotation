@@ -3,8 +3,8 @@ package com.lwn.context;
 import com.lwn.auth.RedisUtils;
 import com.lwn.common.CommonUtil;
 import com.lwn.common.MD5Util;
-import com.lwn.enumeration.ClientType;
-import com.lwn.enumeration.Const;
+import com.lwn.enums.ClientType;
+import com.lwn.enums.Const;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.UserInfoMapper;
 import com.lwn.request.SessionHolder;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
-import java.util.Random;
 
 @Slf4j
 @Component
