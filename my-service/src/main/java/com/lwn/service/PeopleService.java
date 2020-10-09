@@ -14,11 +14,14 @@ import com.lwn.model.mapper.PeopleMapper;
 import com.lwn.model.ro.AddPeopleRo;
 import com.lwn.model.ro.PeopleRo;
 import com.lwn.model.ro.UpdatePeopleRo;
+import io.jsonwebtoken.lang.Collections;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -61,10 +64,15 @@ public class PeopleService {
 
     @RedisCacheClear(keys = "'people_pages:'")
     public void insertPeople(AddPeopleRo ro) {
+        QueryWrapper<People> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(true, "name", ro.getName());
+        List<People> list = peopleMapper.selectList(queryWrapper);
+        if (CollectionUtils.isEmpty(list)) {
+            peopleMapper.insert(BeanUtil.target(People.class).acceptDefault(ro, (people, addPeopleRo) -> {
+                people.setUserId(getCurrentUserId());
+            }));
+        }
 
-        peopleMapper.insert(BeanUtil.target(People.class).acceptDefault(ro, (people, addPeopleRo) -> {
-            people.setUserId(getCurrentUserId());
-        }));
     }
 
     @RedisCacheClear(keys = "'people_pages:'")

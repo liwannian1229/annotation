@@ -1,18 +1,18 @@
 package com.lwn.simple;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.google.gson.Gson;
-import com.lwn.common.*;
-import com.lwn.model.entity.People;
+import com.lwn.common.AppleUtil;
+import com.lwn.common.CommonUtil;
+import com.lwn.common.JsonUtil;
+import com.lwn.common.MD5Util;
 import com.lwn.model.entity.Student;
-import com.lwn.thread.ThreadUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Random;
+import java.util.*;
 
 public class TestOne {
 
@@ -26,7 +26,6 @@ public class TestOne {
         Student student = new Student();
         student.setName("wannian");
 
-
         // 谷歌的Gson转json
         Gson gson = new Gson();
         String s = gson.toJson(student);
@@ -36,8 +35,8 @@ public class TestOne {
         Object o = JSON.toJSON(student);
         System.out.println("alibaba Object:" + o);
 
-        // JsonUtil
         String s1 = JsonUtil.toJson(student);
+        String s2 = JSON.toJSONString(student);
         System.out.println("alibaba string" + s1);
 
         // 是否相等
@@ -110,5 +109,29 @@ public class TestOne {
             e.printStackTrace();
         }
         System.out.println("结束时间:" + DateTime.now().getMillis() / 1000);
+    }
+
+    // 测试三种Collection包的方法
+    @Test
+    public void testCollections() {
+        List<String> list = new ArrayList<>();
+        System.out.println("-----------------------------------测试两个Collections包---下面两行为true----------------------------------------");
+        System.out.println(Collections.emptyList().equals(list));
+        System.out.println(io.jsonwebtoken.lang.Collections.isEmpty(list));
+        list.add("1");
+        System.out.println("-----------------------------------测试三个CollectionUtils包---以下全是false----------------------------------------");
+        System.out.println(CollectionUtils.isEmpty(list));
+        System.out.println(org.springframework.util.CollectionUtils.isEmpty(list));
+        System.out.println(com.baomidou.mybatisplus.core.toolkit.CollectionUtils.isEmpty(list));
+
+        List<String> newEmptyList = new ArrayList<>(Collections.emptyList());
+        newEmptyList.add(0, "第一位是什么呢");
+        newEmptyList.add(1, "第二位是什么呢");
+        newEmptyList.add(2, "第三位是什么呢");
+        System.out.println(newEmptyList);
+        // delimiter 分隔符,separator 分离器
+        System.out.println(String.join(",", newEmptyList));
+        System.out.println(StringUtils.join(newEmptyList, ","));
+        System.out.println(org.apache.commons.lang.StringUtils.join(newEmptyList, ","));
     }
 }
