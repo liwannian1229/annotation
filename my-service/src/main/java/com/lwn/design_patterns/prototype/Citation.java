@@ -33,9 +33,8 @@ public class Citation implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
 
         System.out.println("奖状拷贝成功!");
-        Citation citation = (Citation) super.clone();
 
-        return citation;
+        return super.clone();
     }
 
     public static void main(String[] args) throws CloneNotSupportedException {

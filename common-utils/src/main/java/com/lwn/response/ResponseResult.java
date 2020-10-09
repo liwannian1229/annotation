@@ -14,6 +14,7 @@ public class ResponseResult<T> {
 
     private boolean success;
 
+    // 转json时如果为null,则不序列化
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 

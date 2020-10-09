@@ -1,12 +1,5 @@
 package com.lwn.more;
 
-import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
-import com.lwn.common.AppleUtil;
-import com.lwn.common.ImageVerCodeUtil;
-import com.lwn.common.JsonUtil;
-import com.lwn.enumeration.ApiCode;
-import com.lwn.model.entity.Student;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

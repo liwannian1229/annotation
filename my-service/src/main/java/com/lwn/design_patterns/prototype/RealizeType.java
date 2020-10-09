@@ -13,7 +13,7 @@ public class RealizeType implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         System.out.println("具体原型复制成功");
 
-        return (RealizeType) super.clone();
+        return super.clone();
     }
 
     public static void main(String[] args) throws CloneNotSupportedException {
