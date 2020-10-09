@@ -144,30 +144,39 @@
 
     </dependencies>
 
-    <!--定义全局的配置信息-->
-    <!-- <profiles>
-         <profile>
-             <id>dev</id>  &lt;!&ndash;开发环境&ndash;&gt;
-             <properties>
-                 <deploy.type>dev</deploy.type>
-             </properties>
-             <activation>
-                 <activeByDefault>true</activeByDefault>
-             </activation>
-         </profile>
-         <profile>
-             <id>test</id> &lt;!&ndash;测试环境&ndash;&gt;
-             <properties>
-                 <deploy.type>test</deploy.type>
-             </properties>
-         </profile>
-         <profile>
-             <id>prod</id> &lt;!&ndash;生产环境&ndash;&gt;
-             <properties>
-                 <deploy.type>pro</deploy.type>
-             </properties>
-         </profile>
-     </profiles>-->
+    <!-- 定义全局的配置信息 -->
+    <profiles>
+        <!-- 开发环境 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <deploy.type>dev</deploy.type>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <deploy.type>test</deploy.type>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <deploy.type>prod</deploy.type>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
     <build>
         <plugins>
             <plugin>
