@@ -7,6 +7,7 @@ import com.lwn.cache.RedisCache;
 import com.lwn.cache.RedisCacheClear;
 import com.lwn.common.BeanUtil;
 import com.lwn.context.UserContext;
+import com.lwn.exception.NotFoundException;
 import com.lwn.model.entity.People;
 import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.PeopleMapper;
@@ -41,7 +42,8 @@ public class PeopleService {
     public IPage<People> selectPeoplesPages(PeopleRo ro) {
         Page<People> page = new Page<>(ro.getPageIndex(), ro.getPageSize());
         QueryWrapper<People> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderBy(ro.getOrderType().getValue().equals("desc"), false, ro.getSort())
+        // condition 表示是否排序
+        queryWrapper.orderBy(true, ro.getOrderType().getValue().equals("asc"), ro.getSort())
                 .like("name", ro.getName());
 
         return peopleMapper.selectPage(page, queryWrapper);
@@ -50,7 +52,10 @@ public class PeopleService {
     @RedisCacheClear(keys = "'people_pages:'")
     public void deletePeople(Long id) {
 
-        peopleMapper.deleteById(id);
+        People people = peopleMapper.selectById(id);
+        if (people != null) {
+            peopleMapper.deleteById(id);
+        }
 
     }
 
@@ -65,9 +70,11 @@ public class PeopleService {
     @RedisCacheClear(keys = "'people_pages:'")
     public void updatePeople(UpdatePeopleRo ro) {
 
-        peopleMapper.updateById(BeanUtil.target(People.class).acceptDefault(ro, (people, addPeopleRo) -> {
-            people.setUserId(getCurrentUserId());
-        }));
+        People people1 = peopleMapper.selectById(ro.getId());
+        if (people1 != null) {
+            peopleMapper.updateById(BeanUtil.target(People.class).accept(ro));
+        }
+
     }
 
 }

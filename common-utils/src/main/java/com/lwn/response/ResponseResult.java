@@ -46,6 +46,18 @@ public class ResponseResult<T> {
     /**
      * 返回成功结果
      */
+    public static <T> ResponseResult<T> successResult(String message) {
+        ResponseResult<T> result = new ResponseResult<>();
+        result.message = message;
+        result.code = ResultCode.SUCCESS;
+        result.success = true;
+
+        return result;
+    }
+
+    /**
+     * 返回成功结果
+     */
     public static <T> ResponseResult<T> successResult(String message, T data) {
         ResponseResult<T> result = new ResponseResult<>();
         result.message = message;

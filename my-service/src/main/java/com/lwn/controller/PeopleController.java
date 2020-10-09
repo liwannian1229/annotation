@@ -36,7 +36,7 @@ public class PeopleController {
 
         peopleService.deletePeople(id);
 
-        return ResponseResult.successResult();
+        return ResponseResult.successResult("删除成功");
 
     }
 
@@ -47,7 +47,7 @@ public class PeopleController {
 
         peopleService.insertPeople(ro);
 
-        return ResponseResult.successResult();
+        return ResponseResult.successResult("添加成功");
 
     }
 
@@ -58,7 +58,7 @@ public class PeopleController {
 
         peopleService.updatePeople(ro);
 
-        return ResponseResult.successResult();
+        return ResponseResult.successResult("修改成功");
 
     }
 }
