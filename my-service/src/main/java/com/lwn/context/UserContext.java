@@ -85,8 +85,9 @@ public class UserContext {
 
     public String createToken() {
         String token = "annotation_lwn_";
-        token += CommonUtil.generateRandomNumber(new Random().nextInt((int) (Math.random() * 10) + 1));
-        token += ((System.currentTimeMillis()) + "").substring(0, 8) + CommonUtil.getUUID();
+        // new Random()的nextInt(a)方法,随机生成一个[0,a)的整数,Math.random()随机生成一个[0,1)的小数
+        token += CommonUtil.getUUID().substring(0, 8);
+        token += ((System.currentTimeMillis()) + "").substring(0, 8);
         token = MD5Util.getMD5String(token);
 
         // encoder编码器,decoder解码器

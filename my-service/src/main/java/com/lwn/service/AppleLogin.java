@@ -34,12 +34,12 @@ public class AppleLogin {
         try {
             Map<String, String> map = new HashMap<>();
 
-            //验证identityToken
+            // 验证identityToken
             if (!AppleUtil.verify(identityToken)) {
 
                 return ResponseResult.failureResult("授权验证失败");
             }
-            //对identityToken解码
+            // 对identityToken解码
             JSONObject json = AppleUtil.parserIdentityToken(identityToken);
             if (json == null) {
 

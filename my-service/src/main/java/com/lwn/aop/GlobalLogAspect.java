@@ -28,7 +28,7 @@ public class GlobalLogAspect {
     }
 
     @Before("webLog()")
-    public void doBefore(JoinPoint joinPoint) throws Throwable {
+    public void doBefore(JoinPoint joinPoint) {
         // 接收到请求，记录请求内容
         HttpServletRequest request = SessionHolder.getRequest();
         // 记录下请求内容
@@ -55,7 +55,7 @@ public class GlobalLogAspect {
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
-    public void doAfterReturning(Object ret) throws Throwable {
+    public void doAfterReturning(Object ret) {
         //处理完请求，返回内容
         log.info("响应数据 response：" + ret);
     }

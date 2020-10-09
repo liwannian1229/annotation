@@ -83,12 +83,21 @@ public class TestOne {
     public void testPwd() {
 
 //        System.out.println(MD5Util.getMD5String("12345678"));
-        People people = new People();
-        people.setDel(true);
-        people.setUserId(4L);
-        people.setName("哈哈哈");
-        people.setId(4L);
-        System.out.println(JsonUtil.toJson(people));
+//        People people = new People();
+//        people.setDel(true);
+//        people.setUserId(4L);
+//        people.setName("哈哈哈");
+//        people.setId(4L);
+//        System.out.println(JsonUtil.toJson(people));
+        String token = "annotation_lwn_";
+        // new Random()的nextInt(a)方法,随机生成一个[0,a)的整数,Math.random()随机生成一个[0,1)的小数
+        token += CommonUtil.getUUID().substring(0, 8);
+        token += ((System.currentTimeMillis()) + "").substring(0, 8);
+        token = MD5Util.getMD5String(token);
+
+        // encoder编码器,decoder解码器
+        String s = Base64.getEncoder().encodeToString((token == null ? "" : token).getBytes());
+        System.out.println(s);
     }
 
     @Test

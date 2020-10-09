@@ -102,7 +102,7 @@ public class CommonUtil {
         return phone;
     }
 
-    // 获取一个指定长度的随机数
+    // 获取一个指定长度的随机字符串
     public static StringBuilder generateRandomNumber(int numberLength) {
         if (numberLength <= 0) {
             numberLength = 1;
