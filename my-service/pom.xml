@@ -27,4 +27,17 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <finalName>my-service</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 生成可执行的jar的名字：xxx-exec.jar -->
+                    <classifier>exec</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

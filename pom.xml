@@ -15,6 +15,7 @@
         <module>common-utils</module>
         <module>schedule-service</module>
     </modules>
+    <!-- 继承模式 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -24,6 +25,9 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
+    <!-- 依赖模式 -->
+
     <!--<dependencyManagement>
          关于打包的插件、编译的 JDK 版本、文件的编码格式
          等等这些配置，在没有 parent 的时候，这些统统要自己去配置
@@ -162,7 +166,6 @@
             <properties>
                 <profile.env>test</profile.env>
             </properties>
-            <activation/>
         </profile>
         <!-- 生产环境 -->
         <profile>
@@ -170,28 +173,19 @@
             <properties>
                 <profile.env>prod</profile.env>
             </properties>
-            <activation/>
         </profile>
     </profiles>
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>/*</exclude>
-                </excludes>
+                <includes>
+                    <include>application-${profile.env}.yml</include>
+                    <include>application.yml</include>
+                    <include>**/*</include>
+                </includes>
                 <filtering>true</filtering>
             </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>/application-${profile.env}.yml</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
         </resources>
-        <filters>
-            <filter>src/main/resources/application-${profile.env}.yml</filter>
-        </filters>
     </build>
 </project>

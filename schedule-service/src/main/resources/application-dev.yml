@@ -18,6 +18,6 @@ spring:
 token:
   timeout: 600
 server:
-  port: 9083
+  port: 9081
 my-annotation:
-  key-prefix: my_project
+  key-prefix: my_project_dev
