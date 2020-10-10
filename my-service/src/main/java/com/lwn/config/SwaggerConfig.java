@@ -27,7 +27,7 @@ import java.util.List;
 @Profile({"dev", "test"})
 public class SwaggerConfig {
 
-    @Value("${spring.profiles.active:dev}")
+    @Value("${spring.profiles.active}")
     private String profilesActive;
 
     @Autowired

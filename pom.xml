@@ -150,7 +150,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <deploy.type>dev</deploy.type>
+                <profile.env>dev</profile.env>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -160,30 +160,38 @@
         <profile>
             <id>test</id>
             <properties>
-                <deploy.type>test</deploy.type>
+                <profile.env>test</profile.env>
             </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
+            <activation/>
         </profile>
         <!-- 生产环境 -->
         <profile>
             <id>prod</id>
             <properties>
-                <deploy.type>prod</deploy.type>
+                <profile.env>prod</profile.env>
             </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
+            <activation/>
         </profile>
     </profiles>
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>/*</exclude>
+                </excludes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>/application-${profile.env}.yml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+        <filters>
+            <filter>src/main/resources/application-${profile.env}.yml</filter>
+        </filters>
     </build>
-
 </project>

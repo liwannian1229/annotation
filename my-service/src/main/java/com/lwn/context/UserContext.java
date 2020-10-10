@@ -26,7 +26,7 @@ public class UserContext {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
-    @Value("${token.timeout:600}")
+    @Value("${token.timeout}")
     private Long tokenTimeOut;
 
     // 获取当前用户信息

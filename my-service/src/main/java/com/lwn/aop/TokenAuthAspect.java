@@ -34,7 +34,7 @@ public class TokenAuthAspect {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Value("${token.timeout:600}")
+    @Value("${token.timeout}")
     private Long tokenTimeOut;
 
     @Pointcut("@annotation(com.lwn.annotation.TokenValidator)||@within(com.lwn.annotation.TokenValidator)")

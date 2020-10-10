@@ -1,16 +1,12 @@
 package com.lwn.test;
 
 
-import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 import com.lwn.BaseTest;
-import com.lwn.common.CommonUtil;
-import com.lwn.common.JsonUtil;
-import com.lwn.model.entity.Student;
 import com.lwn.auth.RedisUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -25,6 +21,9 @@ public class TestUtils extends BaseTest {
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Value("${spring.profiles.active}")
+    private String profilesActive;
 
     @Test
     public void testA() {
@@ -111,8 +110,8 @@ public class TestUtils extends BaseTest {
 
     @Test
     public void testPrefix() {
-        String key = redisUtils.prefix("key");
+        //String key = redisUtils.prefix("key");
 
-        System.out.println(key);
+        System.out.println(profilesActive);
     }
 }
