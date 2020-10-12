@@ -220,4 +220,22 @@ public class TestOne {
         System.out.println(StringUtils.join(newEmptyList, ","));
         System.out.println(org.apache.commons.lang.StringUtils.join(newEmptyList, ","));
     }
+
+    @Test
+    public void testShuffle() {
+        List<String> strings = new ArrayList<>();
+        strings.add("1");
+        strings.add("2");
+        strings.add("3");
+        strings.add("4");
+        // 打乱顺序
+        Collections.shuffle(strings);
+        System.out.println(strings);
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            list.add(strings.get(new Random().nextInt(strings.size())));
+        }
+        Collections.shuffle(list);
+        System.out.println(list);
+    }
 }
