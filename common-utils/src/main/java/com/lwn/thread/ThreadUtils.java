@@ -1,6 +1,7 @@
 package com.lwn.thread;
 
 import java.util.concurrent.*;
+import java.util.function.Supplier;
 
 public class ThreadUtils {
 
@@ -69,5 +70,10 @@ public class ThreadUtils {
     public static void shutDownCachedThread() {
 
         cachedThreadPool.shutdownNow();
+    }
+
+    public static String lookMe(Supplier<String> supplier) {
+
+        return supplier.get();
     }
 }

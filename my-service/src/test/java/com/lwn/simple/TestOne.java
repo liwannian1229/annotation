@@ -1,21 +1,35 @@
 package com.lwn.simple;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.convert.ConverterRegistry;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.TimeInterval;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lwn.common.AppleUtil;
 import com.lwn.common.CommonUtil;
 import com.lwn.common.JsonUtil;
 import com.lwn.common.MD5Util;
+import com.lwn.model.entity.People;
 import com.lwn.model.entity.Student;
+import com.lwn.testClass.CustomConverter;
+import com.lwn.thread.ThreadUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 public class TestOne {
 
@@ -238,4 +252,103 @@ public class TestOne {
         Collections.shuffle(list);
         System.out.println(list);
     }
+
+    @Test
+    public void testHuTool() {
+        // 测试 HuTool 克隆
+//        People people = new People();
+//        people.setId(1L);
+//        people.setName("测试");
+//        people.setUserId(1L);
+//        people.setDel(false);
+//
+//        People people1 = ObjectUtil.cloneByStream(people); // 深度克隆
+//        People people2 = ObjectUtil.cloneIfPossible(people);
+//        People clone = ObjectUtil.clone(people);
+//
+//        System.out.println(JsonUtil.toJson(people1));
+//        System.out.println(JsonUtil.toJson(people2));
+//        System.out.println(JsonUtil.toJson(clone));
+        // 测试 HuTool Convert转化类
+//        String a = "1";
+//        Integer integer = Convert.toInt(a);
+//        System.out.println(integer);
+//
+//        String date = "2020-04-25 12:23:45";
+//        System.out.println(DateUtil.date(Convert.toDate(date, new Date())));
+//
+//        Object[] o = {"1", 2, new DateTime()};
+//        List<String> strings = Convert.toList(String.class, o);
+//        System.out.println(JsonUtil.toJson(strings));
+//        String s = "这也是醉了呀";
+//        String hex = Convert.toHex(s, CharsetUtil.CHARSET_UTF_8);
+//        System.out.println(hex);
+//        System.out.println(Convert.hexToStr(hex, CharsetUtil.CHARSET_UTF_8));
+
+//        long s = 3600 * 1000;
+//        System.out.println(Convert.convertTime(s, TimeUnit.MILLISECONDS, TimeUnit.HOURS));
+
+        double d = 67556.32;
+
+//结果为："陆万柒仟伍佰伍拾陆元叁角贰分"
+//        System.out.println(Convert.digitToChinese(d));
+// 包装类和基本类型之间的转换
+        //去包装
+//        Class<?> wrapClass = Integer.class;
+
+//结果为：int.class
+//        Class<?> unWraped = Convert.unWrap(wrapClass);
+//        System.out.println(unWraped);
+
+//包装
+//        Class<?> primitiveClass = long.class;
+
+//结果为：Long.class
+//        Class<?> wraped = Convert.wrap(primitiveClass);
+//        System.out.println(wraped);
+
+        // 自定义的转化
+//        int a = 3423;
+//        ConverterRegistry converterRegistry = ConverterRegistry.getInstance();
+//        String result = converterRegistry.convert(String.class, a);
+
+        // 检查两者是否相等,不相等会报异常,相等则没有任何反应
+//        Assert.assertEquals("3423", result);
+        ConverterRegistry converterRegistry = ConverterRegistry.getInstance();
+//此处做为示例自定义String转换，因为Hutool中已经提供String转换，请尽量不要替换
+//替换可能引发关联转换异常（例如覆盖String转换会影响全局）
+        converterRegistry.putCustom(String.class, CustomConverter.class);
+        int a = 454553;
+        String result = converterRegistry.convert(String.class, a);
+        System.out.println(result);
+        Assert.assertEquals("Custom:454553", result);
+
+    }
+
+    @Test
+    public void testHuToolDate() {
+
+//        System.out.println(DateUtil.ageOfNow("19971229"));
+//        System.out.println(cn.hutool.core.date.DateTime.now());
+        long start = System.currentTimeMillis();
+        TimeInterval timeInterval = new TimeInterval();
+
+        // 参数只要是一个函数式接口(即FunctionalInterface),且只有一个(没有入参的)抽象方法,那么就可以使用()->{}这种lambda表达式
+        ThreadUtils.executeCachedThread(() -> {
+            System.out.println(1111111);
+        });
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long end = System.currentTimeMillis();
+        long interval = timeInterval.interval();
+        System.out.println(end - start);
+        System.out.println(interval);
+
+        String s = ThreadUtils.lookMe(() -> "1");
+        System.out.println(s);
+    }
+
 }
