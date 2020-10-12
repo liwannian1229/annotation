@@ -1,13 +1,10 @@
 package com.lwn.data;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwn.BaseTest;
 import com.lwn.common.BeanUtil;
 import com.lwn.model.entity.People;
 import com.lwn.model.entity.Student;
-import com.lwn.model.entity.UserInfo;
 import com.lwn.model.mapper.PeopleMapper;
 import com.lwn.model.mapper.StudentMapper;
 import com.lwn.model.mapper.UserInfoMapper;
@@ -15,7 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -96,9 +93,8 @@ public class TestData extends BaseTest {
         /**
          * 测试predicate
          */
-        testConsumer(p -> {
-            // 谓语 p
-        });
+        // 谓语 p
+        testPredicate(Objects::isNull);
 
     }
 
