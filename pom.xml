@@ -148,7 +148,9 @@
 
     </dependencies>
 
-    <!-- 定义全局的配置信息 -->
+    <!-- 定义全局的配置信息
+    可以在右上角maven处自由选择打什么环境的jar包,无需手动去修改application.yml文件中的spring.profiles.active的值 -->
+    <!-- 无论打什么环境的包,在运行时都可以重新在java -jar my-service-exec.jar 的后面添加 杠杠spring.profiles.active=具体的环境,来指定具体的环境jar包 -->
     <profiles>
         <!-- 开发环境 -->
         <profile>
