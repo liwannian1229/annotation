@@ -1,12 +1,26 @@
 package com.lwn.simple;
 
-import cn.hutool.core.convert.Convert;
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.convert.ConverterRegistry;
+import cn.hutool.core.date.BetweenFormater;
+import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.http.HttpUtil;
+import cn.hutool.core.exceptions.ExceptionUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.io.StreamProgress;
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.lang.tree.TreeUtil;
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.EnumUtil;
+import cn.hutool.core.util.PageUtil;
+import cn.hutool.db.nosql.redis.RedisDS;
+import cn.hutool.json.JSONException;
+import cn.hutool.json.JSONUtil;
+import cn.hutool.system.SystemUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lwn.common.AppleUtil;
@@ -17,19 +31,20 @@ import com.lwn.model.entity.People;
 import com.lwn.model.entity.Student;
 import com.lwn.testClass.CustomConverter;
 import com.lwn.thread.ThreadUtils;
+import io.swagger.models.auth.In;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.boot.availability.ReadinessState;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
+import java.io.*;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
 public class TestOne {
 
@@ -334,21 +349,171 @@ public class TestOne {
         TimeInterval timeInterval = new TimeInterval();
 
         // 参数只要是一个函数式接口(即FunctionalInterface),且只有一个(没有入参的)抽象方法,那么就可以使用()->{}这种lambda表达式
-        ThreadUtils.executeCachedThread(() -> {
-            System.out.println(1111111);
+        ThreadUtils.executeCachedThread(() -> System.out.println(1111111));
+        ThreadUtils.executeFixedThread(2, () -> {
+            System.out.println(Math.random() * 10);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         long end = System.currentTimeMillis();
         long interval = timeInterval.interval();
         System.out.println(end - start);
         System.out.println(interval);
+    }
 
-        String s = ThreadUtils.lookMe(() -> "1");
+    @Test
+    public void testHuToolExample() {
+
+//        System.out.println(DateUtil.dateSecond());
+//        System.out.println(DateTime.now());
+//        System.out.println(cn.hutool.core.date.DateTime.now());
+//        System.out.println(DateUnit.DAY.getMillis());
+//        // 拿到一毫秒,一秒,一分钟,一小时,一天,一周,一月,一年
+//        System.out.println(DateUnit.MS.getMillis());
+        //当前时间
+        System.out.println(DateUtil.date());
+//当前时间
+        System.out.println(DateUtil.date(Calendar.getInstance()));
+//当前时间
+        System.out.println(DateUtil.date(System.currentTimeMillis()));
+//当前时间字符串，格式：yyyy-MM-dd HH:mm:ss
+        System.out.println(DateUtil.now());
+//当前日期字符串，格式：yyyy-MM-dd
+        System.out.println(DateUtil.today());
+
+        String dateStr = "2020-12-12 04:12:20";
+//        cn.hutool.core.date.DateTime parse = DateUtil.parse(dateStr);//  System.out.println(yyyy_mm_dd);
+//        System.out.println(parse);
+//        String dateStr = "2020-12-15 04:12:20";
+        //cn.hutool.core.date.DateTime yyyy_mm_dd = DateUtil.parse(dateStr, "yyyy MM dd");
+
+        cn.hutool.core.date.DateTime date = DateUtil.date();
+//        System.out.println(DateUtil.year(date));
+//        System.out.println(DateUtil.month(date) + 1); // 从零开始计算
+//        System.out.println(DateUtil.currentSeconds());
+//结果：2017-03-03 22:33:23
+        // 月中第几天,往未来偏移2天
+        Date newDate = DateUtil.offset(date, DateField.DAY_OF_MONTH, 2);
+        System.out.println(newDate);
+
+//常用偏移，结果：2017-03-04 22:33:23
+        cn.hutool.core.date.DateTime newDate2 = DateUtil.offsetDay(date, 3);
+
+//常用偏移，结果：2017-03-01 19:33:23
+        cn.hutool.core.date.DateTime newDate3 = DateUtil.offsetHour(date, -3);
+
+        //昨天
+        System.out.println(DateUtil.yesterday());
+//明天
+        DateUtil.tomorrow();
+//上周
+        DateUtil.lastWeek();
+//下周
+        DateUtil.nextWeek();
+//上个月
+        DateUtil.lastMonth();
+//下个月
+        DateUtil.nextMonth();
+
+        Console.log("s");
+
+        // timer()即new TimeInterval()
+        TimeInterval timer = DateUtil.timer();
+        timer.interval();
+        // DateUtil.formatBetween()
+        String s = DateUtil.formatBetween(DateUtil.offsetDay(DateUtil.date(), 4), date, BetweenFormater.Level.DAY);
         System.out.println(s);
     }
 
+    @Test
+    public void testXZ() {
+//        System.out.println(DateUtil.getZodiac(Month.FEBRUARY.getValue(), 14));
+//
+//        System.out.println(DateUtil.getChineseZodiac(1998));
+//
+//        //年龄
+//        System.out.println(DateUtil.ageOfNow("1998-02-14"));
+//
+//        //是否闰年
+//        System.out.println(DateUtil.isLeapYear(2000));
+        BufferedInputStream in = FileUtil.getInputStream("d:/test.txt");
+        BufferedOutputStream out = FileUtil.getOutputStream("d:/test2.txt");
+//        long copySize = IoUtil.copy(in, out, IoUtil.DEFAULT_BUFFER_SIZE);
+        long l = IoUtil.copyByNIO(in, out, 11, new StreamProgress() {
+            @Override
+            public void start() {
+
+                System.out.println("正在启动复制......");
+            }
+
+            @Override
+            public void progress(long progressSize) {
+
+                System.out.println("正在复制中......" + progressSize);
+            }
+
+            @Override
+            public void finish() {
+
+                System.out.println("已经复制完成......");
+            }
+        });
+        System.out.println(l);
+    }
+
+    @Test
+    public void testIOFile() throws IOException {
+        // 创建文件夹
+        FileUtil.mkdir("d:/mute");
+        // 创建文件
+        File file = FileUtil.file("d:/t.txt");
+        file.createNewFile();
+    }
+
+    @Test
+    public void testEnum() {
+//        boolean accepting_traffic = EnumUtil.contains(ReadinessState.class, "ACCEPTING_TRAFFIC");
+//        System.out.println(accepting_traffic);
+//        People people = new People();
+//        people.setName("kkk");
+//        System.out.println(JSONUtil.toJsonStr(people));
+//        System.out.println(JsonUtil.toJson(people));
+//        Gson gson = new Gson();
+//        System.out.println(gson.toJson(people));
+
+//        Student student = new Student();
+//        student.setName("name");
+//        People people1 = BeanUtil.copyProperties(student, People.class);
+//        System.out.println(JsonUtil.toJson(people1));
+        // 底层被final修饰不能修改
+//        List<Integer> empty = ListUtil.empty();
+//        empty.add(1);
+//        empty.add(2);
+//        System.out.println(JsonUtil.toJson(empty));
+    }
+
+    @Test
+    public void testRedis() {
+// 需要在resource下 构建redis.setting 较繁琐 不建议使用
+//        Jedis jedis = RedisDS.create().getJedis();
+//        jedis.set("key", "value");
+
+//        long currentPID = SystemUtil.getCurrentPID();
+//        System.out.println(currentPID);
+//
+//        System.out.println(SystemUtil.getHostInfo());
+//        System.out.println(SystemUtil.getJavaInfo());
+//        System.out.println(SystemUtil.getJvmInfo());
+//        ThreadUtil.sleep(1);
+    }
+
+    @Test
+    public void testPage() {
+
+        int pageCount = PageUtil.totalPage(41, 2);
+        System.out.println(pageCount);
+    }
 }

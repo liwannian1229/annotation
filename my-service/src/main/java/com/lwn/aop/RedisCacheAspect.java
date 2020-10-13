@@ -109,21 +109,21 @@ public class RedisCacheAspect {
             try {
                 if (key.length > 0) {
                     for (String item : key) {
-                        String ckey = parseKey(item, targetObj, method, args);
+                        String simpleKey = parseKey(item, targetObj, method, args);
                         if (RedisCacheClear.sync()) {
-                            ThreadUtils.executeCachedThread(() -> cacheService.delete(ckey));
+                            cacheService.delete(simpleKey);
                         } else {
-                            cacheService.delete(ckey);
+                            ThreadUtils.executeCachedThread(() -> cacheService.delete(simpleKey));
                         }
                     }
                 }
                 if (keys.length > 0) {
                     for (String item : keys) {
-                        String ckey = parseKey(item, targetObj, method, args);
+                        String manyKeys = parseKey(item, targetObj, method, args);
                         if (RedisCacheClear.sync()) {
-                            ThreadUtils.executeCachedThread(() -> cacheService.deleteKeys(ckey));
+                            cacheService.deleteKeys(manyKeys);
                         } else {
-                            cacheService.deleteKeys(ckey);
+                            ThreadUtils.executeCachedThread(() -> cacheService.deleteKeys(manyKeys));
                         }
                     }
                 }

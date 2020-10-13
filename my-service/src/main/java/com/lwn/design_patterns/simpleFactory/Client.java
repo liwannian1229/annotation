@@ -30,7 +30,7 @@ public class Client {
 
     static class SimpleFactory {
         public static Product makeProduct(int kind) {
-            // kind可以是byte,short,int,char,String
+            // kind可以是byte,short,int,char,String,Enum枚举
             switch (kind) {
                 case Const.PRODUCT_1:
                     return new Product_1();
