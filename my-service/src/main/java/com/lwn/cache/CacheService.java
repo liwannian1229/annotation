@@ -14,6 +14,6 @@ public interface CacheService {
 
     void deleteKeys(String key);
 
-    boolean exists(String key);
+    Boolean exists(String key);
 
 }

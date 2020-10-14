@@ -20,4 +20,4 @@ token:
 server:
   port: 8082
 my-annotation:
-  key-prefix: my_project_prod
+  key-prefix: lwn_prod

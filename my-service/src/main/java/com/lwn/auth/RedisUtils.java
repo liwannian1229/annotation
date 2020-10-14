@@ -17,22 +17,22 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtils implements CacheService {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    private ValueOperations<String, String> valueOperations;
+    private ValueOperations<String, Object> valueOperations;
 
     @Autowired
-    private HashOperations<String, String, String> hashOperations;
+    private HashOperations<String, String, Object> hashOperations;
 
     @Autowired
-    private ListOperations<String, String> listOperations;
+    private ListOperations<String, Object> listOperations;
 
     @Autowired
-    private SetOperations<String, String> setOperations;
+    private SetOperations<String, Object> setOperations;
 
     @Autowired
-    private ZSetOperations<String, String> zSetOperations;
+    private ZSetOperations<String, Object> zSetOperations;
     /**
      * 默认过期时长为12小时，单位：秒
      */
@@ -58,10 +58,10 @@ public class RedisUtils implements CacheService {
     @Override
     public void set(String key, Object value, long expire) {
         try {
-            valueOperations.set(key, toJson(value));
+            valueOperations.set(prefix(key), toJson(value));
             if (expire != NOT_EXPIRE) {
                 // 重新设置过期时间为expire,也就是刷新时间
-                redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+                redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
             }
         } catch (Exception ex) {
             log.error(ex.getMessage());
@@ -76,11 +76,11 @@ public class RedisUtils implements CacheService {
     @Override
     public <T> T get(String key, Class<T> clazz, long expire) {
         try {
-            String value = valueOperations.get(key);
+            Object value = valueOperations.get(prefix(key));
             if (expire != NOT_EXPIRE) {
-                redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+                redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
             }
-            return value == null ? null : fromJson(value, clazz);
+            return value == null ? null : fromJson(value.toString(), clazz);
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
@@ -95,12 +95,12 @@ public class RedisUtils implements CacheService {
 
     public String get(String key, long expire) {
         try {
-            String value = valueOperations.get(key);
+            Object value = valueOperations.get(prefix(key));
             if (expire != NOT_EXPIRE) {
-                redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+                redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
             }
 
-            return value;
+            return value == null ? null : value.toString();
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
@@ -115,7 +115,7 @@ public class RedisUtils implements CacheService {
     @Override
     public void delete(String key) {
         try {
-            redisTemplate.delete(key);
+            redisTemplate.delete(prefix(key));
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
@@ -124,7 +124,7 @@ public class RedisUtils implements CacheService {
     @Override
     public void deleteKeys(String key) {
         try {
-            Set<String> keys = redisTemplate.keys(key + "*");
+            Set<String> keys = redisTemplate.keys(prefix(key) + "*");
             assert keys != null;
             redisTemplate.delete(keys);
         } catch (Exception e) {
@@ -133,9 +133,9 @@ public class RedisUtils implements CacheService {
     }
 
     @Override
-    public boolean exists(String key) {
+    public Boolean exists(String key) {
 
-        return redisTemplate.hasKey(key);
+        return redisTemplate.hasKey(prefix(key));
     }
 
     /**
