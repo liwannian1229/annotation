@@ -15,9 +15,9 @@ spring:
       min-idle: 8
       initial-size: 10
       max-wait: 60000
+
 token:
   timeout: 600
-server:
-  port: 8082
+  
 my-annotation:
   key-prefix: lwn_prod

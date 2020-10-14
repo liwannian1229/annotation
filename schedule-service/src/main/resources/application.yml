@@ -1,9 +1,12 @@
 spring:
   profiles:
     active: @profile.env@
+
 server:
   servlet:
     context-path: /lwn
+  port: 9081
+
 mybatis-plus:
   mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.lwn.model.entity
@@ -14,5 +17,6 @@ mybatis-plus:
   mappers:
     safe-update: true
     safe-delete: true
+
 logging:
   config: classpath:log/logback-spring.xml
