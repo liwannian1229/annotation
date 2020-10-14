@@ -41,11 +41,13 @@
             <version>5.3.10</version>
         </dependency>
 
+        <!--
+        测试HuTool包的
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 </project>
