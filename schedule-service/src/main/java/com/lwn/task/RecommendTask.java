@@ -1,9 +1,7 @@
 package com.lwn.task;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lwn.auth.RedisUtils;
+import com.lwn.cache.RedisUtils;
 import com.lwn.model.entity.People;
 import com.lwn.model.mapper.PeopleMapper;
 import lombok.extern.slf4j.Slf4j;

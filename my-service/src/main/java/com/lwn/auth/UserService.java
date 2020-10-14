@@ -1,6 +1,7 @@
 package com.lwn.auth;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lwn.cache.RedisUtils;
 import com.lwn.common.BeanUtil;
 import com.lwn.common.CommonUtil;
 import com.lwn.common.ImageVerCodeUtil;

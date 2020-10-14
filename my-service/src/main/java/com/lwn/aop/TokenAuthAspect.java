@@ -1,7 +1,7 @@
 package com.lwn.aop;
 
 import com.lwn.annotation.TokenValidator;
-import com.lwn.auth.RedisUtils;
+import com.lwn.cache.RedisUtils;
 import com.lwn.enums.Const;
 import com.lwn.exception.AnnotationException;
 import com.lwn.exception.NoAuthException;

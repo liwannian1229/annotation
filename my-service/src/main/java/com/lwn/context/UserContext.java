@@ -1,6 +1,6 @@
 package com.lwn.context;
 
-import com.lwn.auth.RedisUtils;
+import com.lwn.cache.RedisUtils;
 import com.lwn.common.CommonUtil;
 import com.lwn.common.MD5Util;
 import com.lwn.enums.ClientType;

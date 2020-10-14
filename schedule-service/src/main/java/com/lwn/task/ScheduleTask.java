@@ -1,6 +1,6 @@
 package com.lwn.task;
 
-import com.lwn.auth.RedisUtils;
+import com.lwn.cache.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCallback;

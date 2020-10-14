@@ -1,17 +1,13 @@
 package com.lwn.test;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwn.BaseTest;
-import com.lwn.auth.RedisUtils;
-import com.lwn.model.entity.UserInfo;
+import com.lwn.cache.RedisUtils;
 import com.lwn.model.mapper.UserInfoMapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.Rollback;
-
-import java.util.List;
 
 /**
  * @author liwannian
