@@ -20,4 +20,4 @@ token:
   timeout: 600
 
 my-annotation:
-  key-prefix: my_project_prod
+  key-prefix: lwn_prod

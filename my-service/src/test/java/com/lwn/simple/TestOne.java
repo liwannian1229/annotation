@@ -1,49 +1,37 @@
 package com.lwn.simple;
 
-import cn.hutool.cache.CacheUtil;
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.convert.ConverterRegistry;
 import cn.hutool.core.date.BetweenFormater;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
-import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.StreamProgress;
 import cn.hutool.core.lang.Console;
-import cn.hutool.core.lang.tree.TreeUtil;
-import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.PageUtil;
-import cn.hutool.db.nosql.redis.RedisDS;
-import cn.hutool.json.JSONException;
-import cn.hutool.json.JSONUtil;
-import cn.hutool.system.SystemUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lwn.common.AppleUtil;
 import com.lwn.common.CommonUtil;
 import com.lwn.common.JsonUtil;
 import com.lwn.common.MD5Util;
-import com.lwn.model.entity.People;
 import com.lwn.model.entity.Student;
 import com.lwn.testClass.CustomConverter;
 import com.lwn.thread.ThreadUtils;
-import io.swagger.models.auth.In;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.boot.availability.ReadinessState;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class TestOne {

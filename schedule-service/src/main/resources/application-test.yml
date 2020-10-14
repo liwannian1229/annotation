@@ -4,5 +4,20 @@ spring:
     port: 6379
     password: redis123
     database: 3
-server:
-  port: 9083
+  datasource:
+    url: jdbc:mysql://localhost:3306/db?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      max-active: 20
+      min-idle: 8
+      initial-size: 10
+      max-wait: 60000
+
+token:
+  timeout: 600
+
+my-annotation:
+  key-prefix: lwn_test

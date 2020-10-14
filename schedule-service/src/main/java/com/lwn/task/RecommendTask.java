@@ -25,7 +25,7 @@ public class RecommendTask {
     @Autowired
     private PeopleMapper peopleMapper;
 
-    @Scheduled(cron = " 5 * * * * ? ")
+    // @Scheduled(cron = " 5 * * * * ? ")
     public void recommendTask() {
         // 根据某一些条件拿到一些可用数据
         QueryWrapper<People> queryWrapper = new QueryWrapper<>();

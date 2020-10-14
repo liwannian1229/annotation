@@ -40,7 +40,7 @@ public class ScheduleTask {
         });
     }
 
-    @Scheduled(cron = " 5 * 5 * * ? ")
+    // @Scheduled(cron = " 5 * 5 * * ? ")
     public void scheduleRecommendData() {
 
         // PreparedStatement继承Statement,CallableStatement又继承于PrepareStatement,
