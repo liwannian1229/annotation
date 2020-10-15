@@ -67,7 +67,7 @@ public class UserService {
 
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", ro.getName())
-                .eq("password", MD5Util.getMD5String(ro.getPassword()));
+                .eq("password", MD5Util.get32MD5String(ro.getPassword()));
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
         if (userInfo == null) {
 
@@ -92,7 +92,7 @@ public class UserService {
             throw new ValidationException("用户名已存在!");
         }
         userInfo.setName(ro.getName());
-        userInfo.setPassword(MD5Util.getMD5String(ro.getPassword()));
+        userInfo.setPassword(MD5Util.get32MD5String(ro.getPassword()));
 
         // 密码加密后入库
         userInfoMapper.insert(userInfo);

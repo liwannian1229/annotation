@@ -87,7 +87,7 @@ public class UserContext {
         // new Random()的nextInt(a)方法,随机生成一个[0,a)的整数,Math.random()随机生成一个[0,1)的小数
         token += CommonUtil.getUUID().substring(0, 8);
         token += ((System.currentTimeMillis()) + "").substring(0, 8);
-        token = MD5Util.getMD5String(token);
+        token = MD5Util.get32MD5String(token);
 
         // encoder编码器,decoder解码器
         return Base64.getEncoder().encodeToString((token == null ? "" : token).getBytes());

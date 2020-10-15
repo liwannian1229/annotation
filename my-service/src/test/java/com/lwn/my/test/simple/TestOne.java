@@ -171,7 +171,7 @@ public class TestOne {
         String token = "annotation_lwn_";
         token += CommonUtil.generateRandomNumber(new Random().nextInt((int) (Math.random() * 10) + 1));
         token += ((System.currentTimeMillis()) + "").substring(0, 8) + CommonUtil.getUUID();
-        token = MD5Util.getMD5String(token);
+        token = MD5Util.get32MD5String(token);
         // encoder编码器,decoder解码器
         System.out.println(Base64.getEncoder().encodeToString((token == null ? "" : token).getBytes()));
 
@@ -195,7 +195,7 @@ public class TestOne {
         // new Random()的nextInt(a)方法,随机生成一个[0,a)的整数,Math.random()随机生成一个[0,1)的小数
         token += CommonUtil.getUUID().substring(0, 8);
         token += ((System.currentTimeMillis()) + "").substring(0, 8);
-        token = MD5Util.getMD5String(token);
+        token = MD5Util.get32MD5String(token);
 
         // encoder编码器,decoder解码器
         String s = Base64.getEncoder().encodeToString((token == null ? "" : token).getBytes());
