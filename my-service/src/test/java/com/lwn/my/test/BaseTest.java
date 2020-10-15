@@ -1,5 +1,6 @@
-package com.lwn.my.service;
+package com.lwn.my.test;
 
+import com.lwn.my.service.MyServiceApp;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.lwn.my.service.more;
+package com.lwn.my.test.more;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

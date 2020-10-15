@@ -1,7 +1,7 @@
-package com.lwn.my.service.data;
+package com.lwn.my.test.data;
 
 
-import com.lwn.my.service.BaseTest;
+import com.lwn.my.test.BaseTest;
 import com.lwn.common.utils.util.BeanUtil;
 import com.lwn.repo.model.entity.People;
 import com.lwn.repo.model.entity.Student;

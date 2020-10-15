@@ -1,7 +1,7 @@
-package com.lwn.my.service.test;
+package com.lwn.my.test.test;
 
 
-import com.lwn.my.service.BaseTest;
+import com.lwn.my.test.BaseTest;
 import com.lwn.my.service.cache.RedisUtils;
 import com.lwn.repo.model.mapper.UserInfoMapper;
 import org.junit.Test;
