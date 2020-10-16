@@ -3,6 +3,7 @@ package com.lwn.common.utils.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
@@ -21,7 +22,13 @@ public class JsonUtil {
      * @return
      */
     public static String toJson(Object o) {
-        return JSON.toJSONString(o);
+        // Gson 的toJson()正确性高于fastJson的JSON.toJSONString
+        // 但fastJson的JSON.parseObject()速度要高于Gson的fromJson()
+        // 所以 toJson()使用Gson,fromJson()使用fastJson的parseObject()
+
+//        return JSON.toJSONString(o);
+        Gson gson = new Gson();
+        return gson.toJson(o);
     }
 
     /**
