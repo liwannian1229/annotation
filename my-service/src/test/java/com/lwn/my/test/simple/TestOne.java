@@ -10,15 +10,16 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.StreamProgress;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.PageUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
+import com.lwn.common.utils.thread.ThreadUtils;
 import com.lwn.common.utils.util.AppleUtil;
 import com.lwn.common.utils.util.CommonUtil;
 import com.lwn.common.utils.util.JsonUtil;
 import com.lwn.common.utils.util.MD5Util;
-import com.lwn.repo.model.entity.Student;
 import com.lwn.my.service.testClass.CustomConverter;
-import com.lwn.common.utils.thread.ThreadUtils;
+import com.lwn.repo.model.entity.Student;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -38,7 +39,14 @@ public class TestOne {
 
     @Test
     public void testBase() {
+        Integer integer = 1;
+        System.out.println(JsonUtil.toJson(integer));// 1
+        System.out.println(JSONUtil.toJsonStr(integer));// {} HuTool工具类
 
+        System.out.println(JSON.toJSON(integer));// 1
+        System.out.println(JSON.toJSONString(integer));// 1
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(integer));// 1
     }
 
     @Test
