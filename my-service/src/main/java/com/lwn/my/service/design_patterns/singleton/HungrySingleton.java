@@ -7,7 +7,7 @@ package com.lwn.my.service.design_patterns.singleton;
  */
 public class HungrySingleton {
 
-    private static volatile HungrySingleton instance = new HungrySingleton();
+    private static final HungrySingleton instance = new HungrySingleton();
 
     private HungrySingleton() {
         System.out.println("这是饿汉式单例");

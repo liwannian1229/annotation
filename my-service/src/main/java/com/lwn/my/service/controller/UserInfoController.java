@@ -64,7 +64,7 @@ public class UserInfoController {
     @TokenValidator
     public ResponseResult<String> hello2() {
 
-        log.debug("debug");// 没有配置日志文件 默认日志级别为info,低于info的debug不会显示
+        log.debug("debug");// 没有配置日志文件 默认日志级别为info(只显示level>=info的日志)
         log.info("info");
         log.warn("warn");
         log.error("error");

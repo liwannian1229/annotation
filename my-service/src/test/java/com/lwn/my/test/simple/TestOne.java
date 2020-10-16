@@ -504,4 +504,29 @@ public class TestOne {
         int pageCount = PageUtil.totalPage(41, 2);
         System.out.println(pageCount);
     }
+
+    @Test
+    public void testEmptyList() {
+
+        // 下面这个集合底层都是被final修饰的空集合且没有重写add,remove等相关方法,不能进行增删改,但是可以被重新赋值
+        List noGenericEmptyList = Collections.EMPTY_LIST;
+        List<String> genericEmptyList = Collections.emptyList();
+        List<String> singletonList = Collections.singletonList("");
+
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        System.out.println(JsonUtil.toJson(list));
+
+        noGenericEmptyList = list;
+        System.out.println(noGenericEmptyList);
+
+        genericEmptyList = list;
+        System.out.println(genericEmptyList);
+
+        singletonList = list;
+        System.out.println(singletonList);
+
+    }
 }
