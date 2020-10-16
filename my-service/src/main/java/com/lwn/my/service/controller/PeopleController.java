@@ -1,13 +1,13 @@
 package com.lwn.my.service.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lwn.common.utils.response.ResponseResult;
 import com.lwn.my.service.annotation.TokenValidator;
-import com.lwn.repo.model.entity.People;
 import com.lwn.my.service.model.ro.AddPeopleRo;
 import com.lwn.my.service.model.ro.PeopleRo;
 import com.lwn.my.service.model.ro.UpdatePeopleRo;
-import com.lwn.common.utils.response.ResponseResult;
 import com.lwn.my.service.service.PeopleService;
+import com.lwn.repo.model.entity.People;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
