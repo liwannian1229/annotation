@@ -66,7 +66,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("学习")
                 .description("自我学习")
-                .termsOfServiceUrl("http://empet.shenyi.com")
+                .termsOfServiceUrl("https://baidu.com")
                 //创建人
                 .contact(new Contact("lwn", "www.baidu.com", ""))
                 .version("1.0")
