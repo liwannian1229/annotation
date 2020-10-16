@@ -23,7 +23,7 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping(value = "/userInfo")
-@Api(value = "hello相关")
+@Api(value = "用户相关相关")
 public class UserInfoController {
 
     @Autowired

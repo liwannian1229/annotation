@@ -8,6 +8,7 @@ import com.lwn.my.service.model.ro.PeopleRo;
 import com.lwn.my.service.model.ro.UpdatePeopleRo;
 import com.lwn.common.utils.response.ResponseResult;
 import com.lwn.my.service.service.PeopleService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController("/people")
+@Api(value = "人类信息")
 public class PeopleController {
 
     @Autowired

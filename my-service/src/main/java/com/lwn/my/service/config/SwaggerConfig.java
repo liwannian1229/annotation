@@ -55,7 +55,7 @@ public class SwaggerConfig {
                 .enable(!profilesActive.equalsIgnoreCase("prod"))
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.lwn.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.lwn.my.service.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(aParameters);
