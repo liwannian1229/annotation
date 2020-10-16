@@ -1,8 +1,11 @@
 package com.lwn.my.test.data;
 
 
-import com.lwn.my.test.BaseTest;
 import com.lwn.common.utils.util.BeanUtil;
+import com.lwn.common.utils.util.JsonUtil;
+import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.my.service.testClass.BoTest;
+import com.lwn.my.test.BaseTest;
 import com.lwn.repo.model.entity.People;
 import com.lwn.repo.model.entity.Student;
 import com.lwn.repo.model.mapper.PeopleMapper;
@@ -10,9 +13,11 @@ import com.lwn.repo.model.mapper.StudentMapper;
 import com.lwn.repo.model.mapper.UserInfoMapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -28,6 +33,12 @@ public class TestData extends BaseTest {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private RedisUtils redisUtils;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Test
     public void testBeanUtils() {
@@ -201,5 +212,37 @@ public class TestData extends BaseTest {
 
         page.getRecords().forEach(System.out::println); //获取当前页对象遍历打印*/
 
+    }
+
+    @Test
+    public void testRedisCache() {
+//        BoTest boTest = new BoTest();
+//        boTest.setCommentCount(1);
+//        boTest.setDisLikeCount(1);
+//        boTest.setIsLikeCount(1);
+//
+//        redisUtils.set("count", boTest, 600);// toJson  "{\"commentCount\":1,\"isLikeCount\":1,\"disLikeCount\":1}"
+//
+//        redisUtils.set_no_toJson("count_1", boTest, 600);// 不转json  {"@class":"com.lwn.my.service.testClass.BoTest","commentCount":1,"isLikeCount":1,"disLikeCount":1}
+//
+//        System.out.println("转json:");
+//        BoTest boTest1 = redisUtils.get("count", BoTest.class);
+//        System.out.println(boTest1);
+//        System.out.println(JsonUtil.toJson(boTest1));
+//
+//        System.out.println("没转json:");
+//        BoTest boTest2 = redisUtils.get("count_1", BoTest.class);
+//        System.out.println(boTest2);
+//        System.out.println(JsonUtil.toJson(boTest2));
+//
+//        System.out.println("fromJson");
+//
+//        System.out.println("count");
+//        String count = redisUtils.get("count");
+//        System.out.println(JsonUtil.fromJson(count, BoTest.class));
+//
+//        System.out.println("count_1");
+//        String count_1 = redisUtils.get("count_1");
+//        System.out.println(JsonUtil.fromJson(count_1, BoTest.class));
     }
 }

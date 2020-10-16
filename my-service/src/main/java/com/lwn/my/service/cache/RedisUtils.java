@@ -67,6 +67,18 @@ public class RedisUtils implements CacheService {
         }
     }
 
+    public void set_no_toJson(String key, Object value, long expire) {
+        try {
+            valueOperations.set(prefix(key), value);
+            if (expire != NOT_EXPIRE) {
+                // 重新设置过期时间为expire,也就是刷新时间
+                redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
+            }
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+    }
+
     @Override
     public void set(String key, Object value) {
         set(key, value, DEFAULT_EXPIRE);

@@ -18,6 +18,7 @@ import com.lwn.common.utils.util.AppleUtil;
 import com.lwn.common.utils.util.CommonUtil;
 import com.lwn.common.utils.util.JsonUtil;
 import com.lwn.common.utils.util.MD5Util;
+import com.lwn.my.service.cache.RedisUtils;
 import com.lwn.my.service.testClass.CustomConverter;
 import com.lwn.repo.model.entity.Student;
 import org.apache.commons.collections.CollectionUtils;
@@ -537,4 +538,5 @@ public class TestOne {
         System.out.println(singletonList);
 
     }
+
 }
