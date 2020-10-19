@@ -5,6 +5,7 @@ import cn.hutool.core.date.BetweenFormater;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
+import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.StreamProgress;
@@ -14,11 +15,8 @@ import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lwn.common.utils.thread.ThreadUtils;
-import com.lwn.common.utils.util.AppleUtil;
-import com.lwn.common.utils.util.CommonUtil;
-import com.lwn.common.utils.util.JsonUtil;
-import com.lwn.common.utils.util.MD5Util;
-import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.common.utils.util.*;
+import com.lwn.common.utils.util.QRCode.QRCodeUtil;
 import com.lwn.my.service.testClass.CustomConverter;
 import com.lwn.repo.model.entity.Student;
 import org.apache.commons.collections.CollectionUtils;
@@ -30,11 +28,15 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class TestOne {
 
@@ -539,4 +541,44 @@ public class TestOne {
 
     }
 
+    /**
+     * 测试生成二维码
+     */
+    @Test
+    public void testQRCode() {
+        // 存放在二维码中的内容,二维码中的内容可以是文字，可以是链接等
+        String text = "http://www.baidu.com";
+        // 嵌入二维码的图片路径
+        String imgPath = "C:\\Users\\Administrator\\Desktop\\img\\dog.png";
+        // 生成的二维码的路径及名称
+        String destPath = "C:\\Users\\Administrator\\Desktop\\code\\" + System.currentTimeMillis() + ".jpg";
+        //生成二维码
+        String str = null;
+        try {
+            QRCodeUtil.encode(text, imgPath, destPath, true);
+            // 解析二维码
+            str = QRCodeUtil.decode(destPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 打印出解析出的内容
+        System.out.println(str);
+    }
+
+    /**
+     * 测试生成验证码
+     */
+    @Test
+    public void testCaptcha() {
+        // 生成验证码存放的位置并命名为captcha.png
+        File file = new File("C:\\Users\\Administrator\\Desktop\\code\\captcha.png");
+
+        String s = null;
+        try {
+            s = ImageVerCodeUtil.outputVerifyImage(400, 100, file, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(s);
+    }
 }

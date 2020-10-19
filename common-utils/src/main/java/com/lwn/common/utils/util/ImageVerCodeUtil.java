@@ -19,7 +19,7 @@ public class ImageVerCodeUtil {
 
     //使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
     private static final String VERIFY_CODES = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjklmnpqrstuvwxyz";
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
 
     /**
