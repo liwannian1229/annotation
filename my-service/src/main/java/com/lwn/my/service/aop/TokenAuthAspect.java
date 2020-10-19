@@ -71,7 +71,7 @@ public class TokenAuthAspect {
         HttpServletRequest req = SessionHolder.getRequest();
         assert req != null;
         String token = req.getHeader("token");// getHeader()是获取HTTP头部信息,getParameter()是获取表单参数
-        String userInfoId = redisUtils.get(Const.TOKEN + token, tokenTimeOut);
+        String userInfoId = redisUtils.getString(Const.TOKEN + token, tokenTimeOut);
         if (StringUtils.isEmpty(token)) {
             token = req.getParameter("token");
             if (StringUtils.isEmpty(token) || StringUtils.isEmpty(userInfoId)) {
@@ -93,7 +93,7 @@ public class TokenAuthAspect {
         UserInfo userInfo = redisUtils.get(Const.USER_INFO + userInfoId, UserInfo.class, tokenTimeOut);
         if (userInfo != null) {
             // 刷新缓存
-            redisUtils.get(Const.USER_INFO + userInfoId, tokenTimeOut);
+            redisUtils.getString(Const.USER_INFO + userInfoId, tokenTimeOut);
             req.setAttribute(Const.CURRENT_USER, userInfo);
         } else {
             if (isCheck) {

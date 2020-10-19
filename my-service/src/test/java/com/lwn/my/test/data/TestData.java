@@ -227,7 +227,9 @@ public class TestData extends BaseTest {
 
         System.out.println("转json:");
         BoTest boTest1 = redisUtils.get("count", BoTest.class);
+//        BoTest boTes2 = redisUtils.get_no_fromJson("count", BoTest.class, 600);
         System.out.println(boTest1);
+//        System.out.println(boTes2);
 //        System.out.println(JsonUtil.toJson(boTest1));
 
         System.out.println("没转json:");
