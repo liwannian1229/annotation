@@ -98,13 +98,26 @@ public class RedisUtils implements CacheService {
         return null;
     }
 
+    public <T> T get_no_fromJson(String key, Class<T> clazz, long expire) {
+        try {
+            Object value = valueOperations.get(prefix(key));
+            if (expire != NOT_EXPIRE) {
+                redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
+            }
+            return (T) value;
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return null;
+    }
+
     @Override
     public <T> T get(String key, Class<T> clazz) {
         return get(key, clazz, NOT_EXPIRE);
     }
 
 
-    public String get(String key, long expire) {
+    public String getString(String key, long expire) {
         try {
             Object value = valueOperations.get(prefix(key));
             if (expire != NOT_EXPIRE) {
@@ -119,8 +132,8 @@ public class RedisUtils implements CacheService {
         return null;
     }
 
-    public String get(String key) {
-        return get(key, NOT_EXPIRE);
+    public String getString(String key) {
+        return getString(key, NOT_EXPIRE);
     }
 
     @Override

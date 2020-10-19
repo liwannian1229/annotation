@@ -216,33 +216,35 @@ public class TestData extends BaseTest {
 
     @Test
     public void testRedisCache() {
-//        BoTest boTest = new BoTest();
-//        boTest.setCommentCount(1);
-//        boTest.setDisLikeCount(1);
-//        boTest.setIsLikeCount(1);
-//
-//        redisUtils.set("count", boTest, 600);// toJson  "{\"commentCount\":1,\"isLikeCount\":1,\"disLikeCount\":1}"
-//
-//        redisUtils.set_no_toJson("count_1", boTest, 600);// 不转json  {"@class":"com.lwn.my.service.testClass.BoTest","commentCount":1,"isLikeCount":1,"disLikeCount":1}
-//
-//        System.out.println("转json:");
-//        BoTest boTest1 = redisUtils.get("count", BoTest.class);
-//        System.out.println(boTest1);
+        BoTest boTest = new BoTest();
+        boTest.setCommentCount(1);
+        boTest.setDisLikeCount(1);
+        boTest.setIsLikeCount(1);
+
+        redisUtils.set("count", boTest, 600);// toJson  "{\"commentCount\":1,\"isLikeCount\":1,\"disLikeCount\":1}"
+
+        redisUtils.set_no_toJson("count_1", boTest, 600);// 不转json  {"@class":"com.lwn.my.service.testClass.BoTest","commentCount":1,"isLikeCount":1,"disLikeCount":1}
+
+        System.out.println("转json:");
+        BoTest boTest1 = redisUtils.get("count", BoTest.class);
+        System.out.println(boTest1);
 //        System.out.println(JsonUtil.toJson(boTest1));
-//
-//        System.out.println("没转json:");
-//        BoTest boTest2 = redisUtils.get("count_1", BoTest.class);
-//        System.out.println(boTest2);
+
+        System.out.println("没转json:");
+        BoTest boTest2 = redisUtils.get_no_fromJson("count_1", BoTest.class, 600);
+        System.out.println(boTest2);
 //        System.out.println(JsonUtil.toJson(boTest2));
-//
-//        System.out.println("fromJson");
-//
-//        System.out.println("count");
-//        String count = redisUtils.get("count");
+
+        System.out.println("fromJson");
+
+        System.out.println("count");
+        String count = redisUtils.getString("count");
+        System.out.println(count);
 //        System.out.println(JsonUtil.fromJson(count, BoTest.class));
-//
-//        System.out.println("count_1");
-//        String count_1 = redisUtils.get("count_1");
+
+        System.out.println("count_1");
+        String count_1 = redisUtils.getString("count_1", 600);
+        System.out.println(count_1);
 //        System.out.println(JsonUtil.fromJson(count_1, BoTest.class));
     }
 }
