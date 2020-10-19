@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: @profile.env@
+  devtools:
+    restart:
+      enabled: true
 
 server:
   servlet:
