@@ -22,7 +22,7 @@ import java.util.Enumeration;
 @Component
 public class GlobalLogAspect {
 
-    @Pointcut("execution(public * com.lwn.controller..*.*(..))")
+    @Pointcut("execution(public * com.lwn.my.service.controller..*.*(..))")
     public void webLog() {
 
     }

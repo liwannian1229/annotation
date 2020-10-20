@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2020年9月2612点06分
  */
 @Configuration
-@MapperScan("com.lwn.model.mapper")
+@MapperScan("com.lwn.repo.model.mapper")
 public class MybatisPlusPageConfig {
 
     /**

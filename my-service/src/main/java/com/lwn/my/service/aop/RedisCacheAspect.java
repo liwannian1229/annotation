@@ -1,10 +1,9 @@
 package com.lwn.my.service.aop;
-
+import com.lwn.common.utils.util.CommonUtil;
+import com.lwn.common.utils.thread.ThreadUtils;
 import com.lwn.my.service.cache.CacheService;
 import com.lwn.my.service.cache.RedisCache;
 import com.lwn.my.service.cache.RedisCacheClear;
-import com.lwn.common.utils.util.CommonUtil;
-import com.lwn.common.utils.thread.ThreadUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;

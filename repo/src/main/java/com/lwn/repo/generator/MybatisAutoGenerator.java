@@ -51,14 +51,14 @@ public class MybatisAutoGenerator {
         //设置文件的包名
         pc.setModuleName("");
         pc.setParent("");
-        pc.setEntity("com.lwn.model.entity");
-        pc.setMapper("com.lwn.model.mapper");
+        pc.setEntity("com.lwn.repo.model.entity");
+        pc.setMapper("com.lwn.repo.model.mapper");
 //        pc.setController("com.lwn.controller");
 //        pc.setService("com.lwn.service");
         //设置不同类文件生成的路径
         HashMap<String, String> pathMap = new HashMap<>();
-        pathMap.put(ConstVal.ENTITY, projectPath + "/repo/src/main/java/com/lwn/model/entity");
-        pathMap.put(ConstVal.MAPPER, projectPath + "/repo/src/main/java/com/lwn/model/mapper");
+        pathMap.put(ConstVal.ENTITY, projectPath + "/repo/src/main/java/com/lwn/repo/model/entity");
+        pathMap.put(ConstVal.MAPPER, projectPath + "/repo/src/main/java/com/lwn/repo/model/mapper");
         pathMap.put(ConstVal.XML, projectPath + "/repo/src/main/resources/mapping");
 //        pathMap.put(ConstVal.CONTROLLER, projectPath + "/my-service/src/main/java/com/lwn/controller");
 //        pathMap.put(ConstVal.SERVICE, projectPath + "/my-service/src/main/java/com/lwn/service");
@@ -111,7 +111,7 @@ public class MybatisAutoGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义Entity文件名跟生成路径
-                return projectPath + "/repo/src/main/java/com/lwn/model/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+                return projectPath + "/repo/src/main/java/com/lwn/repo/model/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
             }
         });
 
@@ -127,7 +127,7 @@ public class MybatisAutoGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义Mapper类文件名和生成路径
-                return projectPath + "/repo/src/main/java/com/lwn/model/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
+                return projectPath + "/repo/src/main/java/com/lwn/repo/model/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
             }
         });
 
@@ -135,7 +135,7 @@ public class MybatisAutoGenerator {
 //            @Override
 //            public String outputFile(TableInfo tableInfo) {
 //                // 自定义Controller类文件名和生成路径
-//                return projectPath + "/my-service/src/main/java/com/lwn/controller/" + tableInfo.getEntityName() + "Controller" + StringPool.DOT_JAVA;
+//                return projectPath + "/my-service/src/main/java/com/lwn/my/service/controller/" + tableInfo.getEntityName() + "Controller" + StringPool.DOT_JAVA;
 //            }
 //        });
 //
@@ -143,7 +143,7 @@ public class MybatisAutoGenerator {
 //            @Override
 //            public String outputFile(TableInfo tableInfo) {
 //                // 自定义Service类文件名和生成路径
-//                return projectPath + "/my-service/src/main/java/com/lwn/service/" + tableInfo.getEntityName() + "Service" + StringPool.DOT_JAVA;
+//                return projectPath + "/my-service/src/main/java/com/lwn/my/service/service/" + tableInfo.getEntityName() + "Service" + StringPool.DOT_JAVA;
 //            }
 //        });
 

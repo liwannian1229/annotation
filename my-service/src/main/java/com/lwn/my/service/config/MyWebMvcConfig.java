@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
-@MapperScan(basePackages = "com.lwn.model.mapper")
+@MapperScan(basePackages = "com.lwn.repo.model.mapper")
 @ControllerAdvice
 @Configuration
 public class MyWebMvcConfig extends GlobalExceptionConfig {
