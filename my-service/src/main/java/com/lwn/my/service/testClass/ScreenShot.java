@@ -1,7 +1,5 @@
 package com.lwn.my.service.testClass;
 
-import sun.plugin2.util.SystemUtil;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * 截屏
+ *
  * @since 2020 10.19 18点17分
  */
 public class ScreenShot {

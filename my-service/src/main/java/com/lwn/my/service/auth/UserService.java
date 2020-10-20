@@ -103,8 +103,13 @@ public class UserService {
 
         String sessionId = SessionHolder.getSession().getId();
         Cookie cookie = new Cookie("sessionId", sessionId);
+        // 该Cookie的使用路径.
+        // 如果设置为“/sessionWeb/”,则只有contextPath为“/sessionWeb”的程序可以访问该Cookie.
+        // 如果设置为“/”,则本域名下contextPath都可以访问该Cookie.注意最后一个字符必须为“/”
         cookie.setPath("/");
-        // 默认-1,即不存储cookie;0为退出即删除cookie;其他值为存储秒数
+        // 该Cookie失效的时间,单位秒.如果为正数,则该Cookie在maxAge秒之后失效.
+        // 如果为负数,该Cookie为临时Cookie(仅存储在浏览器内存中),关闭浏览器即失效,浏览器也不会以任何形式保存该Cookie.默认为–1
+        // 如果为0,表示立即删除该Cookie.
         cookie.setMaxAge(0);
 
         response.addCookie(cookie);
@@ -113,6 +118,7 @@ public class UserService {
 
         SessionHolder.getSession().setAttribute("sessionId", sessionId);
         String captcha = ImageVerCodeUtil.outputVerifyImage(400, 100, response.getOutputStream(), 4);
+        log.info("验证码:" + captcha);
 
         redisUtils.set("captcha:" + sessionId, captcha, 10 * 60);
     }
