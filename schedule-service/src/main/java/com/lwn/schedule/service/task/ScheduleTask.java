@@ -1,6 +1,6 @@
 package com.lwn.schedule.service.task;
 
-import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.common.utils.cache.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCallback;

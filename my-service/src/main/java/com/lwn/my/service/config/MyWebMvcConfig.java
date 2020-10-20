@@ -1,5 +1,6 @@
 package com.lwn.my.service.config;
 
+import com.lwn.common.utils.config.GlobalExceptionConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ControllerAdvice;

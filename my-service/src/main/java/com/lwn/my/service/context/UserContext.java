@@ -1,6 +1,6 @@
 package com.lwn.my.service.context;
 
-import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.common.utils.cache.RedisUtils;
 import com.lwn.common.utils.util.CommonUtil;
 import com.lwn.common.utils.util.MD5Util;
 import com.lwn.common.utils.enums.ClientType;

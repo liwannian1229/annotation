@@ -1,9 +1,10 @@
-package com.lwn.my.service.aop;
-import com.lwn.common.utils.util.CommonUtil;
+package com.lwn.common.utils.aop;
+
+import com.lwn.common.utils.cache.CacheService;
+import com.lwn.common.utils.cache.RedisCache;
+import com.lwn.common.utils.cache.RedisCacheClear;
 import com.lwn.common.utils.thread.ThreadUtils;
-import com.lwn.my.service.cache.CacheService;
-import com.lwn.my.service.cache.RedisCache;
-import com.lwn.my.service.cache.RedisCacheClear;
+import com.lwn.common.utils.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -38,7 +39,7 @@ public class RedisCacheAspect {
      * @annotation 是方法级别
      * @within 是对象级别
      */
-    @Around("@annotation(com.lwn.my.service.cache.RedisCache)")
+    @Around("@annotation(com.lwn.common.utils.cache.RedisCache)")
     public Object redisCache(ProceedingJoinPoint pjp) throws Throwable {
         log.debug("cache - redis");
 
@@ -91,7 +92,7 @@ public class RedisCacheAspect {
         return cacheResult;
     }
 
-    @Around("@annotation(com.lwn.my.service.cache.RedisCacheClear)")
+    @Around("@annotation(com.lwn.common.utils.cache.RedisCacheClear)")
     public Object redisClean(ProceedingJoinPoint pjp) throws Throwable {
 
         log.debug("clear redis cache");

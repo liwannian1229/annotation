@@ -136,7 +136,7 @@ public class CommonUtil {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义Entity文件名跟生成路径
-                return Config.projectPath + "/repo/src/main/java/com/lwn/model/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+                return Config.projectPath + "/repo/src/main/java/com/lwn/repo/model/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
             }
         });
 
@@ -144,7 +144,7 @@ public class CommonUtil {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义Mapper类文件名和生成路径
-                return Config.projectPath + "/repo/src/main/java/com/lwn/model/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
+                return Config.projectPath + "/repo/src/main/java/com/lwn/repo/model/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
             }
         });
 
@@ -152,7 +152,7 @@ public class CommonUtil {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义Controller类文件名和生成路径
-                return Config.projectPath + "/my-service/src/main/java/com/lwn/controller/" + tableInfo.getEntityName() + "Controller" + StringPool.DOT_JAVA;
+                return Config.projectPath + "/my-service/src/main/java/com/lwn/my/service/controller/" + tableInfo.getEntityName() + "Controller" + StringPool.DOT_JAVA;
             }
         });
 
@@ -160,7 +160,7 @@ public class CommonUtil {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义Service类文件名和生成路径
-                return Config.projectPath + "/my-service/src/main/java/com/lwn/service/" + tableInfo.getEntityName() + "Service" + StringPool.DOT_JAVA;
+                return Config.projectPath + "/my-service/src/main/java/com/lwn/my/service/service/" + tableInfo.getEntityName() + "Service" + StringPool.DOT_JAVA;
             }
         });*/
         injectionConfig.setFileOutConfigList(focList);

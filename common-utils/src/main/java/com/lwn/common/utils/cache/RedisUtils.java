@@ -1,4 +1,4 @@
-package com.lwn.my.service.cache;
+package com.lwn.common.utils.cache;
 
 import com.google.gson.Gson;
 import com.lwn.common.utils.util.CommonUtil;

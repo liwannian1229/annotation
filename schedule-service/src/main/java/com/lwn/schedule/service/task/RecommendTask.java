@@ -1,7 +1,7 @@
 package com.lwn.schedule.service.task;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.common.utils.cache.RedisUtils;
 import com.lwn.repo.model.entity.People;
 import com.lwn.repo.model.mapper.PeopleMapper;
 import lombok.extern.slf4j.Slf4j;

@@ -1,12 +1,12 @@
 package com.lwn.my.service.aop;
 
 import com.lwn.my.service.annotation.TokenValidator;
-import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.common.utils.cache.RedisUtils;
 import com.lwn.common.utils.enums.Const;
-import com.lwn.my.service.exception.AnnotationException;
-import com.lwn.my.service.exception.NoAuthException;
-import com.lwn.repo.model.entity.UserInfo;
+import com.lwn.common.utils.exception.AnnotationException;
+import com.lwn.common.utils.exception.NoAuthException;
 import com.lwn.common.utils.request.SessionHolder;
+import com.lwn.repo.model.entity.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;

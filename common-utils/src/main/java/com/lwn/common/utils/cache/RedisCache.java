@@ -1,6 +1,6 @@
-package com.lwn.my.service.cache;
+package com.lwn.common.utils.cache;
 
-import com.lwn.my.service.aop.RedisCacheAspect;
+import com.lwn.common.utils.aop.RedisCacheAspect;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;

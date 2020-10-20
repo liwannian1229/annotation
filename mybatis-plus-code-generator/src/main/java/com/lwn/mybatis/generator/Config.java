@@ -9,12 +9,12 @@ public class Config {
     /**
      * 包名：controller
      */
-    // public static final String PACKAGE_NAME_CONTROLLER = "com.lwn.controller";
+    // public static final String PACKAGE_NAME_CONTROLLER = "com.lwn.my.service.controller";
 
     /**
      * 包名：service
      */
-    // public static final String PACKAGE_NAME_SERVICE = "com.lwn.model.service";
+    // public static final String PACKAGE_NAME_SERVICE = "com.lwn.my.service.service";
 
     /**
      * 包名：service.impl
@@ -24,12 +24,12 @@ public class Config {
     /**
      * 包名：model
      */
-    public static final String PACKAGE_NAME_MODEL = "com.lwn.model.entity";
+    public static final String PACKAGE_NAME_MODEL = "com.lwn.repo.model.entity";
 
     /**
      * 包名：mapper
      */
-    public static final String PACKAGE_NAME_MAPPER = "com.lwn.model.mapper";
+    public static final String PACKAGE_NAME_MAPPER = "com.lwn.repo.model.mapper";
 
     /**
      * 包名：xml

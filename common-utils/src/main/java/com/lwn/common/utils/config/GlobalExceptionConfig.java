@@ -1,8 +1,8 @@
-package com.lwn.my.service.config;
+package com.lwn.common.utils.config;
 
-import com.lwn.my.service.exception.AnnotationException;
-import com.lwn.my.service.exception.NoAuthException;
-import com.lwn.my.service.exception.TokenInValidException;
+import com.lwn.common.utils.exception.AnnotationException;
+import com.lwn.common.utils.exception.NoAuthException;
+import com.lwn.common.utils.exception.TokenInValidException;
 import com.lwn.common.utils.response.ResponseResult;
 import com.lwn.common.utils.response.ResultCode;
 import lombok.extern.slf4j.Slf4j;

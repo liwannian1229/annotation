@@ -1,4 +1,4 @@
-package com.lwn.my.service.config;
+package com.lwn.common.utils.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

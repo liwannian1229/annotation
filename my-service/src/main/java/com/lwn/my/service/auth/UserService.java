@@ -1,14 +1,14 @@
 package com.lwn.my.service.auth;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.common.utils.cache.RedisUtils;
 import com.lwn.common.utils.util.BeanUtil;
 import com.lwn.common.utils.util.CommonUtil;
 import com.lwn.common.utils.util.ImageVerCodeUtil;
 import com.lwn.common.utils.util.MD5Util;
 import com.lwn.my.service.context.UserContext;
 import com.lwn.common.utils.enums.LoginStatusCode;
-import com.lwn.my.service.exception.ValidationException;
+import com.lwn.common.utils.exception.ValidationException;
 import com.lwn.repo.model.entity.UserInfo;
 import com.lwn.repo.model.mapper.UserInfoMapper;
 import com.lwn.my.service.model.ro.UserInfoRo;

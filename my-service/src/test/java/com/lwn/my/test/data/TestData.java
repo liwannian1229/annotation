@@ -2,8 +2,7 @@ package com.lwn.my.test.data;
 
 
 import com.lwn.common.utils.util.BeanUtil;
-import com.lwn.common.utils.util.JsonUtil;
-import com.lwn.my.service.cache.RedisUtils;
+import com.lwn.common.utils.cache.RedisUtils;
 import com.lwn.my.service.testClass.BoTest;
 import com.lwn.my.test.BaseTest;
 import com.lwn.repo.model.entity.People;
@@ -17,7 +16,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;

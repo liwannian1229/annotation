@@ -1,4 +1,4 @@
-package com.lwn.my.service.exception;
+package com.lwn.common.utils.exception;
 
 public class InvokeException extends AnnotationException {
 
