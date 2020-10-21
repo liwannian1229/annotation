@@ -162,6 +162,13 @@ public class RedisUtils implements CacheService {
         return redisTemplate.hasKey(prefix(key));
     }
 
+    @Override
+    public void expire(String key, long expire, TimeUnit timeUnit) {
+        if (expire != NOT_EXPIRE) {
+            redisTemplate.expire(prefix(key), expire, timeUnit);
+        }
+    }
+
     /**
      * Object转成JSON数据
      */
